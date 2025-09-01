@@ -4,7 +4,7 @@
 % toptesti document class
 \documentclass[%
     a4paper, % not needed, by default it is a4paper, or also b5paper can be used
-    corpo=12pt, % dimension of basic font
+    corpo=10pt, % dimension of basic font
     % oneside is generally the way to go
     oneside, % two side optimizes for two-face printing, having chapters open on the right (aka odd numbers), if you don't want blank pages put oneside here
     stile=standard,
@@ -25,6 +25,7 @@
 \input{common/thesis_info.tex}
 
 \input{common/font_config.tex}
+\onehalfspacing
 
 \addbibresource{bibliography.bib}
 
@@ -38,7 +39,7 @@
 
 \input{common/toptesi_config}
 
-%\english % uncomment for English
+\english % uncomment for English
 
 % front page -- add your info in common/thesis_info.tex
 \input{common/frontpage.tex} % new frontespizio (2023)

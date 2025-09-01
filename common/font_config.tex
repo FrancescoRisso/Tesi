@@ -1,3 +1,17 @@
+% XeLaTeX font configuration
+%\setmainfont{Latin Modern Roman}
+\setsansfont{Latin Modern Sans}
+\setmonofont{Latin Modern Mono}
+
+\setmainfont[
+	Path=common/fonts/,
+	Extension = .ttf,
+	UprightFont = *-Light,
+	ItalicFont  = *-LightItalic,
+	BoldFont    = *-Bold,
+	BoldItalicFont = *-BoldItalic
+]{Poppins}
+
 % fontsize is {size}{spacing}\family
 \newcommand {\institutionfont}{\fontsize {20}{30}\scshape}
 \newcommand {\divisionfont}{\fontsize {12}{20}\rmfamily}
