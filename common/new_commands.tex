@@ -2,8 +2,8 @@
 
 % how to change Contents to Table of Contents
 \addto\captionsenglish{% Replace "english" with the language you use
-  \renewcommand{\contentsname}%
-    {Table of Contents}%
+	\renewcommand{\contentsname}%
+	{Table of Contents}%
 }
 
 % to change the name of Abbreviations to Acronyms
@@ -27,3 +27,10 @@
 \let\oldnorm\norm
 \def\norm{\@ifstar{\oldnorm}{\oldnorm*}}
 \makeatother
+
+\newcommand{\fig}[3]{
+	\begin{figure}
+		\centerline{\includegraphics[width=0.9\textwidth]{#1}}
+		\caption{\centering #3\label{fig:#2}}
+	\end{figure}
+}
