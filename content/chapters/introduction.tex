@@ -22,3 +22,27 @@ While being easy for the human brain, the task of recreating a 3D scene from som
 In my thesis, I had to try to accomplish it with good quality, with very stringent requirements about computation time.
 
 \section{Structure of the thesis}
+
+% Choose the best format
+
+% \newcommand{\structuretype}{itemize}
+% \newcommand{\structureitem}[2]{\item \textbf{Chapter #1} #2}
+
+\newcommand{\structuretype}{description}
+\newcommand{\structureitem}[2]{\item[Chapter #1] #2}
+
+This thesis is structured as follows:
+
+\begin{\structuretype}
+	\structureitem{\ref{chap:goal}}{explains the overall goals of the project and of my thesis;}
+	\structureitem{\ref{chap:stateart}}{analyses how the task is split in subtasks, and the pre-existing solutions that are available for each subtask;}
+	\structureitem{\ref{chap:tools}}{describes the main tools that were used in the thesis;}
+	\structureitem{\ref{chap:locate}}{deeply analyses the requirements, the alternatives and the final implementation for the Locate step of the algorithm;}
+	\structureitem{\ref{chap:2dlink}}{performs a similar analysis for the 2D link step;}
+	\structureitem{\ref{chap:matching}}{explains the stereoscopy theory for 3D reconstruction, to then study the different alternatives to put it in practice;}
+	\structureitem{\ref{chap:3dlink}}{describes the 3D linking alternatives, in contrast to the 2D ones explained in chapter \ref{chap:2dlink};}
+	\structureitem{\ref{chap:visual}}{illustrates the two visualizers that were developed to interactively see the reconstructed trajectories;}
+	\structureitem{\ref{chap:pipeline}}{explains how the steps described in the previous chapters are joined together in a single pipeline;}
+	\structureitem{\ref{chap:results}}{evaluates the quality and speed of the final solution;}
+	\structureitem{\ref{chap:conclusions}}{draws the final conclusions from the thesis, and hints at possible future improvements.}
+\end{\structuretype}
