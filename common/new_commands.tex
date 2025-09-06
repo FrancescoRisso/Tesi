@@ -27,10 +27,3 @@
 \let\oldnorm\norm
 \def\norm{\@ifstar{\oldnorm}{\oldnorm*}}
 \makeatother
-
-\newcommand{\fig}[3]{
-	\begin{figure}
-		\centerline{\includegraphics[width=0.9\textwidth]{#1}}
-		\caption{\centering #3\label{fig:#2}}
-	\end{figure}
-}

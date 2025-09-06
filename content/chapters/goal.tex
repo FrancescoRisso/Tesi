@@ -26,8 +26,38 @@ For this reason, the ``soap'' must be a material that creates bubbles with a max
 
 From all these considerations, the bubbles were created with a coating made of [TODO CONTROLLARE IL NOME], filled with helium.
 
-\fig{images/experimental-setup}{experimetal-setup}{The experimental setup: the machine in the corner of the room is creating some bubbles that fill the space}
+\begin{figure}
+	\centerline{\includegraphics[width=0.9\textwidth]{images/experimental-setup.png}}
+	\caption{\centering The experimental setup: the machine in the corner of the room is creating some small bubbles that fill the space}
+	\label{fig:experimetal-setup}
+\end{figure}
 
 \section{Project objectives}
+
+\subsection{The cameras}
+
+SMA-RTY France~\cite{smarty-website}, the company where I did my internship, has as core business the selling of special-purpose, FPGA-driven cameras.
+As such, one of the two tasks contracted to them by the research group was the construction of a specific camera for this purpose.
+
+This task was tackled by their internal team of embedded developers, that created [TODO REPERIRE NOME E SPECIFICHE].
+
+In the final setup, 3 or 4 of these cameras can be used in a stereoscopic arrangement, as shown in figure~\ref{fig:camera-setup}
+
+\subsection{Reconstruction algorithm acceleration}
+
+The research group internally developed a Matlab tool for analysing the video footage from an arramngement of 3 cameras, but the processing speed was extremely slow.
+As such, they contracted SMA-RTY to create an accelerated version, either by improving the original one, or by creating a totally new script, in whichever programming language was best.
+The objective of the acceleration was to have a real-time software, that would be able to process the videos live, with an allowance of some seconds of jitter.
+That is, a delay between capturing the frame and outputting the reconstruction was acceptable, as long as it did not increase over time.
+
+SMA-RTY internally started working on this, with an unfinished solution that accelerated the processing to 19 FPS.
+This script was already orders of magnitude faster than the original one, but the obtained speed was still less than the target.
+On top of this, this unfinished solution was able only to do 2D tracking for each camera, it did not have the 3D reconstruction yet: implementing  it could not have other effects but slow it down.
+
+\begin{figure}
+	\centerline{\includegraphics[width=0.9\textwidth]{images/cameras.jpg}}
+	\caption{\centering A tripod with 3 of the SMA-RTY cameras in a stereoscopic arrangement}
+	\label{fig:camera-setup}
+\end{figure}
 
 \section{Thesis objectives}
