@@ -1,7 +1,7 @@
 \chapter{Goals}
 \label{chap:goal}
 
-\section{Project overview}
+\section{Project objectives}
 
 Not long after the COVID-19 pandemic started, people realized that the disease could spread by means of water droplets suspended in the air.
 This lead many research groups in the fluid dynamics domain to investigate how air would move inside a room, carrying such droplets (some examples:~\cite{covid-air-1}\cite{covid-air-2}).
@@ -32,7 +32,7 @@ From all these considerations, the bubbles were created with a coating made of [
 	\label{fig:experimetal-setup}
 \end{figure}
 
-\section{Project objectives}
+\section{Company objectives}
 
 \subsection{The cameras}
 
@@ -61,3 +61,11 @@ On top of this, this unfinished solution was able only to do 2D tracking for eac
 \end{figure}
 
 \section{Thesis objectives}
+
+I was assigned by the SMA-RTY team the task of accelerating the Matlab script for processing the videos.
+Originally, the vision was to exploit my CUDA skills to leverage the parallelization of GPUs.
+However, as the body of this thesis will make clear, there was not so much parallelization that could be done.
+Instead of focusing on ``better'' hardware architectures, the best course of action was indeed to optimise the various software steps.
+
+Therefore, the objective of my thesis became the recreation of the full pipeline, from image capturing to 3d markers rendering.
+The main constraint of the result would be the speed, 24 FPS were required at steady-state, while the output quality should be as good as possible.
