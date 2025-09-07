@@ -27,3 +27,15 @@
 \let\oldnorm\norm
 \def\norm{\@ifstar{\oldnorm}{\oldnorm*}}
 \makeatother
+
+\newcommand{\colvectwo}[2]{\begin{bmatrix} #1 \\ #2 \end{bmatrix}}
+\newcommand{\rowvectwo}[2]{\begin{bmatrix} #1 & #2 \end{bmatrix}}
+
+\newcommand{\colvecthree}[3]{\begin{bmatrix} #1 \\ #2 \\ #3 \end{bmatrix}}
+\newcommand{\rowvecthree}[3]{\begin{bmatrix} #1 & #2 & #3 \end{bmatrix}}
+
+\newcommand{\colvecfour}[4]{\begin{bmatrix} #1 \\ #2 \\ #3\\ #4 \end{bmatrix}}
+\newcommand{\rowvecfour}[4]{\begin{bmatrix} #1 & #2 & #3 & #4 \end{bmatrix}}
+
+\newcommand{\colvecfive}[5]{\begin{bmatrix} #1 \\ #2 \\ #3 \\ #4 \\ #5 \end{bmatrix}}
+\newcommand{\rowvecfive}[5]{\begin{bmatrix} #1 & #2 & #3 & #4 & #5 \end{bmatrix}}
