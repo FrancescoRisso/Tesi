@@ -2,14 +2,59 @@
 \label{chap:tools}
 
 \section{Python libraries}
+
+The particle tracking software that I developed was fully written in Python.
+This choice was made considering many reasons, including:
+\begin{itemize}
+	\itemsep 0em
+	\item the extensive quantity of optimized libraries for accomplishing many subtasks (e.g. \texttt{NumPy});
+	\item the simplicity of the syntax, leading to fast development and testing;
+	\item the presence of many existing approaches to the problem;
+	\item the possibility to run GPU kernels.
+\end{itemize}
+Initially, there were discussions about testing the different ideas in Python for development speed, to then translate the code into C++, to leverage its faster execution speed.
+At the end, the speed of the Python implementation was good enough, so it was kept as the final version, without rewriting.
+On top of that, the program relied heavily on advanced \texttt{NumPy} features: a C++ porting would require equivalent manual implementations, thus losing the intrinsic optimizations.
+
 \subsection{NumPy, SciPy, CuPy}
+
+\texttt{NumPy}~\cite{numpy} and \texttt{SciPy}~\cite{scipy} are the classical optimised libraries used for mathematical computations.
+\texttt{CuPy}~\cite{cupy} is an alternative to \texttt{SciPy}, that makes use of a GPU to parallelise and accelerate even more the methods.
+
 \subsection{OpenCV}
+
+\texttt{OpenCV}~\cite{opencv} is the most common library used for image handling and computer vision tasks.
+
 \subsection{Numba}
+
+\texttt{Numba}~\cite{numba} is a Just-In-Time compiler for Python: it enables to compile the code instead of interpreting it, improving on Python's infamous slow speed.
+On top of this, it enables to write Python kernels that can be compiled into CUDA code, enabling to fully exploit the GPU at the programmer's discretion.
+
 \subsection{Open3D}
+
+\texttt{Open3D}~\cite{open3d} is an open-source library to support the visualization of 3D data.
+
 \subsection{Other libraries}
+
+The libraries \texttt{trackpy}~\cite{trackpy}, \texttt{MyPTV}~\cite{myptv}, \texttt{TracTrac}~\cite{tractrac}, as well as the Matlab project \texttt{4d-ptv}~\cite{fourdptv}, are different existing tools for attempting the task. A better analysis follows in the chapters where all the steps are examined.
+
+The library \texttt{PyTorch}~\cite{pytorch}, one of the main pillar of machine learning in Python, is also used in some of the attempts at finding the best solution.
 
 \section{Unity}
 
+Thanks to my experience in making interactive applications in Unity, I chose this as one of the tools to represent the reconstructed traces.
+Its instrinsic 3D render capapilities, combined with its natural interactive nature, made for a perfect tool for this objective.
+
 \section{Testing devices}
+
+During development, everything was tested on a Jetson Orin Nano, while a final benchmarking was also done ...
+
 \subsection{Jetson Orin Nano}
+
+The Jetson Orin Nano~\cite{jetson} is a compact but powerful system developed by NVIDIA.
+It is powered by a 6-core Arm® Cortex®-A78AE v8.2 64-bit CPU.
+It provides an 8GB, LPDDR5 RAM, and accepts an SD card and an external NVMe as mass storage.
+It also features a NVIDIA GPU with Ampere architecture, that offers 1024 CUDA cores and 32 tensor cores.
+The power consumption can oscillate between 7 and 25W: during our tests, it was always set to maximise performance. 
+
 \subsection{...}
