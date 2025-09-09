@@ -36,7 +36,8 @@ As such, the full distortion can be described with the vector $\rowvecfive{k_1}{
 
 The estimation of the distortion parameters (among with other parameters) can be computed using \texttt{OpenCV}'s \texttt{calibrateCamera} function.
 It requires data extracted from multiple calibration frames, each one with a set of complanar points.
-These points must be provided both in pixel coordinates of the captured image, and in a coordinate system ``natural'' to the plane where the points lay (e.g. $\rowvectwo{0}{0}$ for the topleft point, $\rowvectwo{0}{1}$ for the next to the right, \dots).
+Each frame must provide the list of pixel coordinates of the points detected in the image.
+On top of that, each point must be labelled with a coordinate system local to the plane where the points lay: an example can be a row/column index for a grid-like pattern.
 
 Common calibration patterns are dots (figure~\ref{fig:calibration-planes}.a) or the corners of a chessboard (figure~\ref{fig:calibration-planes}.b).
 Often, to help the detection of the chessboard corners, ArUco~\cite{aruco} markers are added in the white cells (figure~\ref{fig:calibration-planes}.c).
@@ -77,7 +78,7 @@ Consider a simple scene, with a camera observing a point.
 Define a frame of reference centered in the camera.
 The point can be described as $R=\rowvecthree{P_x}{P_y}{P_z}^T$.
 The camera will project the point onto the image plane, at the homogeneous coordinate $R'=\rowvecthree{P_x'}{P_y'}{1}^T$.
-In is possible to show that $P'$ can be written as $P$ transformed by a matrix $K$, called \textbf{intrinsic matrix}: $P' = K{\cdot}P$.
+It is possible to show that $P'$ can be written as $P$ transformed by a matrix $K$, called \textbf{intrinsic matrix}: $P' = K{\cdot}P$.
 
 In particular, $K$ is in the form:
 \begin{equation}
@@ -100,7 +101,7 @@ where:
 
 The full intrinsic matrix is estimated by the same \texttt{OpenCV} function that evaluates the distortion coefficients.
 
-\subsubsection{How to remove extrinsic parameters}
+\subsubsection{How to remove intrinsic parameters}
 Using \texttt{OpenCV}'s \texttt{undistort} function, it is possible to remove also the intrinsic parameters.
 The result is the image as it would be taken by a camera with $K{=}I_3$.
 This enables to compare pixel-wise images captured with different optic and sensor arrangements.
@@ -117,19 +118,19 @@ In this frame of reference it is therefore crucial to understand position and or
 Considering camera $A$ as main, the extrinsic parameters of another camera $B$ can be expressed in three different ways:
 \begin{itemize}
 	\item \textbf{rotation matrix $R$} and \textbf{translation vector $t$}: $R$ describes how to rotate $A$ to be in the same orientation as $B$ (equivalently, how $B$ is rotated in $A$'s frame of reference); $t$ is the versor in $B$'s frame of reference towards the origin (equivalently, $B$ is located in $-Rt$ in the main frame of reference);
-	\item \textbf{essential matrix $E$}. Assuming $P_A=\rowvecthree{x_A}{y_A}{1}$ and $P_B=\rowvecthree{x_B}{y_B}{1}$ are the \textit{undistorted} projections of a point $P$ on the two cameras, $E$ is a matrix such that $P_B \cdot E \cdot P_A^T = 0$. $E$ can also be computed as $E = [t]_{\times}{\cdot}R$, where $[t]_{\times}$ is the matrix representation of the cross product of $t$;
+	\item \textbf{essential matrix $E$}. Assuming $P_A=\rowvecthree{x_A}{y_A}{1}$ and $P_B=\rowvecthree{x_B}{y_B}{1}$ are the \textit{undistorted} projections of a point $P$ on the two cameras, $E$ is a matrix such that $P_B \cdot E \cdot P_A^T = 0$. $E$ can also be computed as $E = [t]_{\times}R$, where $[t]_{\times}$ is the matrix representation of the cross product of $t$;
 	\item \textbf{fundamental matrix $F$}: the definition is the same as $E$'s, but using the points with $K$ still applied (only the distortion has to be removed). If the two cameras have intrinsic matrices $K_A$ and $K_B$, $F$ can be computed as $F = \left(K_A^{-1}\right)^T \cdot E \cdot K_B^T$.
 \end{itemize}
 
 \subsubsection{How to calibrate the parameters}
 
-The extrinsic calibration can be obtained from the same data as the intrinsic calbiration, provided that the cameras took a picture of the exact same scene (which likely implies that the pictures must be taken at the exact same time instant).
+The extrinsic calibration can be obtained from the same data as the intrinsic calibration, provided that the cameras took a picture of the exact same scene (which likely implies that the pictures must be taken at the exact same time instant).
 The calibration points detected on both images can be processed by:
 \begin{itemize}
 	\itemsep 0em
-	\item \texttt{OpenCV}'s \texttt{recoverPose} function to obtain $R$ and $t$
-	\item \texttt{OpenCV}'s \texttt{findEssentialMat} function to obtain $E$
-	\item \texttt{OpenCV}'s \texttt{findFundamentalMat} function to obtain $F$
+	\item \texttt{OpenCV}'s \texttt{recoverPose} function to obtain $R$ and $t$;
+	\item \texttt{OpenCV}'s \texttt{findEssentialMat} function to obtain $E$;
+	\item \texttt{OpenCV}'s \texttt{findFundamentalMat} function to obtain $F$.
 \end{itemize}
 
 \subsubsection{How to remove extrinsic parameters}
