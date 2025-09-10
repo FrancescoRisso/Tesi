@@ -1,7 +1,54 @@
 \chapter{The Locate step}
 \label{chap:locate}
 
+The task of the Locate step consists in extracting the positions of the bubbles in pixel coordinates, independently for each frame of each camera.
+
 \section{Requirements}
+
+\subsection{Input}
+The Locate step receives as input the videos captured by the cameras, frame by frame.
+The images are pre-processed by the cameras: the background is removed, and the resulting image is binarized with a threshold, to have distinct white bubbles over a black background.
+Figure~\ref{fig:locate:original} depicts an example input frame.
+
+\begin{figure}
+	\centerline{\includegraphics[width=0.9\textwidth]{images/locate/_original-frame.png}}
+	\caption{\centering An example of frame returned by the cameras}
+	\label{fig:locate:original}
+\end{figure}
+
+\subsection{Output}
+
+The output of the Locate step is a couple of \texttt{numpy} arrays.
+An array called \texttt{positions} describes the coordinates of each bubble present in a frame. It is a four-dimensional, floating-point array, where \texttt{positions[C][F][B]} describes the $B$-th bubble of the $F$-th frame of camera $C$, in the form of an \texttt{(x, y[, area])} tuple.
+Bubbles are ordered in a random, arbitrary way.
+
+Due to \texttt{numpy} limitations, the array is pre-allocated of a fixed size: while the number of cameras is fixed, an upper limit on the number of frames and bubbles must be decided before execution.
+Knowing which frames contain meaningful data is trivial, while it is not for the number of bubbles, that can change between frame and frame.
+For this reason, a second array was introduced: \texttt{numTracers} is a two-dimensional, integer array.
+\texttt{numTracers[C][F]} carries the information of how many tracers are valid inside the $F$-th frame of camera $C$.
+The coordinates of the valid tracers will therefore be \texttt{positions[C][F][numTracers[C][F]]}.
+
+\subsection{Speed}
+
+When used on a setup of $N$ cameras with framerate $f$ each, the Locate step would receive $N{\cdot}f$ independent frames each second.
+To respect the real-time constraint, the Locate step would therefore need to operate at a minimum of $N{\cdot}f$ FPS.
+
+When I did the analysis on the Locate step, the plan was to have 3 cameras working at 30 FPS, requiring a 90 FPS Locate step.
+Later, the cameras turned out to be slower, at 24 FPS, but there were 4: the final Locate implementation was able to manage also these 96 FPS.
+
+\subsection{Quality}
+
+Ideally, all tracers should be detected, with precision, recall and F1-score equal to 1.
+If however there are mistakes in the locating process, the errors would propagate to future steps:
+\begin{itemize}
+	\itemsep 0em
+	\item \textbf{False positives}: the matching phase will have more candidates, leading to \textit{possible} wrong reconstructions: the matching can both choose the correct bubble, or the one added by the error (or another real one);
+	\item \textbf{False negatives:} the same bubble in another frame will not have the correct match, leading to \textit{certain} wrong reconstructions.
+\end{itemize}
+As such, it is better to prioritize false negatives over false positives, which means prioritize precision over recall.
+
+It is however to be noted that the most important requirement is the speed: a worse implementation which is speedwise above target should be preferred to a better implementation that does not meet speed requirements.
+
 \section{Approaches}
 \subsection{MyPTV}
 \subsection{...}
