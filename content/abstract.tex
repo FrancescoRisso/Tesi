@@ -1,1 +1,21 @@
 % abstract, choose between abstract and summary
+
+For better understanding what happens during an experiment, and extracting as much information as possible from it, the possibility of recording the experiment itself and watching it again at a later time is crucial.
+% The possibility of recording precisely the behaviour of a given experiment and watching it again at a later time is crucial for better understanding what happened and extracting as much information as possible.
+%The possibility of watching again what happened is crucial for extracting as much information as possible from an experiment.
+While for many cases achieving this is just a matter of recording the event with a camera, some complex situations require more attention.
+One such case is when the nature of the experiments is to understand 3D data, where a 2D video would not carry the necessary information.
+
+% In this thesis, we develop a full pipeline to process a set of synchronized videos, to reconstruct the 3D trajectory of small bubbles moving in the air.
+This thesis aims at recording 3D trajectories of small bubbles moving in the air.
+%In this thesis, we want to record 3D trajectories of small bubbles moving in the air.
+This is achieved by combining the information provided by a set of synchronized cameras, observing the experiment.
+The source videos capture the same scene from different positions, which are known thanks to an initial calibration process.
+The special-purpose cameras are able to provide binary frames, highlighting the bubbles in white, on top of a black background.
+The proposed solution starts by transforming each frame into a list of 2D coordinates, describing where the center of each bubble is within the image.
+For each time instant, the different points of view are then leveraged to reproject the coordinates into the 3D space, creating a cloud of 3D points.
+Subsequently, the intrinsic sequential nature of the video is made explicit: reconstructed bubbles of consecutive frames are joined together, to form trajectories.
+Finally, the obtained 3D reconstruction needs to be displayed on a 2D monitor: different techniques are exploited to make this visualization as intuitive and understandable as possible.
+
+This thesis illustrates all the approaches evaluated for each step, and which ones are eventually chosen thanks to their speed and quality performance.
+The final solution is a pipeline that can process in real-time the experimental setup, displaying the reconstructed trajectories only a few seconds after the image capture.
