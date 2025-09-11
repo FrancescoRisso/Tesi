@@ -32,7 +32,7 @@ The coordinates of the valid tracers will therefore be \texttt{positions[C][F][n
 
 \subsection{Speed}
 
-When used on a setup of $N$ cameras with framerate $f$ each, the Locate step would receive $N{\cdot}f$ independent frames each second.
+When used on a setup of $N$ cameras with frame rate $f$ each, the Locate step would receive $N{\cdot}f$ independent frames each second.
 To respect the real-time constraint, the Locate step would therefore need to operate at a minimum of $N{\cdot}f$ FPS.
 
 When I did the analysis on the Locate step, the plan was to have 3 cameras working at 30 FPS, requiring a 90 FPS Locate step.
@@ -59,14 +59,14 @@ For each approach, an example of the result is reported: it is the result of per
 \subsection{Trackpy}
 
 Trackpy~\cite{trackpy} is a particle tracking library developed by Soft Matter.
-Its \texttt{locate} function performs the task required, if an extra ouptut format transformation step is applied.
+Its \texttt{locate} function performs the task required, if an extra output format transformation step is applied.
 
 \subsubsection{Algorithm}
 
-As described in the documentation, the \texttt{locate} function implements the following algorihtm:
+As described in the documentation, the \texttt{locate} function implements the following algorithm:
 \begin{enumerate}
 	\itemsep 0em
-	\item Preprocess the image by performing a band pass and a threshold.
+	\item Pre-process the image by performing a band pass and a threshold.
 	\item Locate all peaks of brightness, characterize the neighborhoods of the peaks and take only those with given total brightness (``mass'').
 	\item Refine the positions of each peak.
 \end{enumerate}

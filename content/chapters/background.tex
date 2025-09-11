@@ -35,9 +35,9 @@ As such, the full distortion can be described with the vector $\rowvecfive{k_1}{
 \subsubsection{How to calibrate the parameters}
 
 The estimation of the distortion parameters (among with other parameters) can be computed using \texttt{OpenCV}'s \texttt{calibrateCamera} function.
-It requires data extracted from multiple calibration frames, each one with a set of complanar points.
+It requires data extracted from multiple calibration frames, each one with a set of coplanar points.
 Each frame must provide the list of pixel coordinates of the points detected in the image.
-On top of that, each point must be labelled with a coordinate system local to the plane where the points lay: an example can be a row/column index for a grid-like pattern.
+On top of that, each point must be labeled with a coordinate system local to the plane where the points lay: an example can be a row/column index for a grid-like pattern.
 
 Common calibration patterns are dots (figure~\ref{fig:calibration-planes}.a) or the corners of a chessboard (figure~\ref{fig:calibration-planes}.b).
 Often, to help the detection of the chessboard corners, ArUco~\cite{aruco} markers are added in the white cells (figure~\ref{fig:calibration-planes}.c).
@@ -91,8 +91,8 @@ In particular, $K$ is in the form:
 where:
 \begin{itemize}
 	\itemsep 0em
-	\item $f_x$ and $f_y$ are the focal lenghts in pixels of the optic system. They may differ along the horizontal and vertical direction;
-	\item $s$ is the skew, that can be caused by the digitalization process;
+	\item $f_x$ and $f_y$ are the focal lengths in pixels of the optic system. They may differ along the horizontal and vertical direction;
+	\item $s$ is the skew, that can be caused by the digitization process;
 	\item $x_0$ and $y_0$ are the coordinates of the pixel where the center of projection of the camera stands.
 	      % \item $x_0$ and $y_0$ are the horizontal and vertical offset in pixels between the center of projection and the bottom-left corner of the sensor.
 \end{itemize}
@@ -222,7 +222,7 @@ The particle tracking software that I developed was fully written in Python.
 This choice was made considering many reasons, including:
 \begin{itemize}
 	\itemsep 0em
-	\item the extensive quantity of optimized libraries for accomplishing many subtasks (e.g. \texttt{NumPy});
+	\item the extensive quantity of optimized libraries for accomplishing many sub tasks (e.g. \texttt{NumPy});
 	\item the simplicity of the syntax, leading to fast development and testing;
 	\item the presence of many existing approaches to the problem;
 	\item the possibility to run GPU kernels.
@@ -233,8 +233,8 @@ On top of that, the program relied heavily on advanced \texttt{NumPy} features: 
 
 \subsection{NumPy, SciPy, CuPy}
 
-\texttt{NumPy}~\cite{numpy} and \texttt{SciPy}~\cite{scipy} are the classical optimised libraries used for mathematical computations.
-\texttt{CuPy}~\cite{cupy} is an alternative to \texttt{SciPy}, that makes use of a GPU to parallelise and accelerate even more the methods.
+\texttt{NumPy}~\cite{numpy} and \texttt{SciPy}~\cite{scipy} are the classical optimized libraries used for mathematical computations.
+\texttt{CuPy}~\cite{cupy} is an alternative to \texttt{SciPy}, that makes use of a GPU to parallelize and accelerate even more the methods.
 
 \subsection{OpenCV}
 
@@ -260,4 +260,4 @@ The library \texttt{PyTorch}~\cite{pytorch}, one of the main pillar of machine l
 TODO REDO
 
 Thanks to my experience in making interactive applications in Unity, I chose this as one of the tools to represent the reconstructed traces.
-Its instrinsic 3D render capapilities, combined with its natural interactive nature, made for a perfect tool for this objective.
+Its intrinsic 3D render capabilities, combined with its natural interactive nature, made for a perfect tool for this objective.
