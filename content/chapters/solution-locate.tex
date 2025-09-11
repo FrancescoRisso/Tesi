@@ -3,6 +3,8 @@
 
 The task of the Locate step consists in extracting the positions of the bubbles in pixel coordinates, independently for each frame of each camera.
 
+\section{State of the art}
+TODO
 \section{Requirements}
 
 \subsection{Input}
@@ -38,18 +40,48 @@ Later, the cameras turned out to be slower, at 24 FPS, but there were 4: the fin
 
 \subsection{Quality}
 
-Ideally, all tracers should be detected, with precision, recall and F1-score equal to 1.
-If however there are mistakes in the locating process, the errors would propagate to future steps:
+Ideally, all tracers should be detected, since errors in the locating process would propagate to future steps:
 \begin{itemize}
 	\itemsep 0em
 	\item \textbf{False positives}: the matching phase will have more candidates, leading to \textit{possible} wrong reconstructions: the matching can both choose the correct bubble, or the one added by the error (or another real one);
 	\item \textbf{False negatives:} the same bubble in another frame will not have the correct match, leading to \textit{certain} wrong reconstructions.
 \end{itemize}
-As such, it is better to prioritize false negatives over false positives, which means prioritize precision over recall.
+As such, it is better to overpredict (false positives) than to miss bubbles.
 
 It is however to be noted that the most important requirement is the speed: a worse implementation which is speedwise above target should be preferred to a better implementation that does not meet speed requirements.
 
 \section{Approaches}
-\subsection{MyPTV}
+
+The following sections describe the many different approaches for the Locate step.
+Their speed and quality is evaluated on a common 1-camera, 100-frame sequence.
+For each approach, an example of the result is reported: it is the result of performing the locate on the frame reported in figure~\ref{fig:locate:original}.
+
+\subsection{Trackpy}
+
+Trackpy~\cite{trackpy} is a particle tracking library developed by Soft Matter.
+Its \texttt{locate} function performs the task required, if an extra ouptut format transformation step is applied.
+
+\subsubsection{Algorithm}
+
+As described in the documentation, the \texttt{locate} function implements the following algorihtm:
+\begin{enumerate}
+	\itemsep 0em
+	\item Preprocess the image by performing a band pass and a threshold.
+	\item Locate all peaks of brightness, characterize the neighborhoods of the peaks and take only those with given total brightness (``mass'').
+	\item Refine the positions of each peak.
+\end{enumerate}
+
+\subsubsection{Evaluation}
+
+\begin{figure}
+	\centerline{\includegraphics[width=0.9\textwidth]{images/locate/trackpy.png}}
+	\caption{\centering Trackpy's result}
+	\label{fig:locate:tracpy}
+\end{figure}
+
 \subsection{...}
+\subsubsection{Algorithm}
+\subsubsection{Evaluation}
+
+
 \section{Final choice}
