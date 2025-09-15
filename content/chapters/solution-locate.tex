@@ -6,7 +6,17 @@
 The task of the Locate step consists in extracting the positions of the bubbles in pixel coordinates, independently for each frame of each camera.
 
 \section{State of the art}
-TODO
+
+When searching in literature, many approaches were found to tackle the \textit{Locate} problem.
+They were tested and compared with the algorithmic ideas developed within this thesis:
+\begin{itemize}
+	\itemsep 0em
+	\item Section~\ref{sec:locate:trackpy} explores the Trackpy~\cite{trackpy} Python library;
+	\item Section~\ref{sec:locate:myptv} explores the MyPTV~\cite{myptv} Python library;
+	\item Section~\ref{sec:locate:tractrac} explores the TracTrac~\cite{tractrac} Python program;
+	\item Section~\ref{sec:locate:fourdptv} explores the 4d-ptv~\cite{fourdptv} Matlab script.
+\end{itemize}
+
 \section{Requirements}
 
 \subsection{Input}
@@ -65,6 +75,7 @@ For each approach, an example of the result is reported: it is the result of per
 \input{content/chapters/solution-locate/myptv.tex}
 \input{content/chapters/solution-locate/gpu-algorithm.tex}
 \input{content/chapters/solution-locate/iterative.tex}
+\input{content/chapters/solution-locate/tractrac.tex}
 \input{content/chapters/solution-locate/hough.tex}
 \input{content/chapters/solution-locate/hough-gpu.tex}
 \input{content/chapters/solution-locate/4dptv.tex}
