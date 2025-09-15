@@ -1,17 +1,37 @@
 \subsection{Torch.unfold concept}
 
-...
+The \texttt{unfold} function from \texttt{PyTorch} takes an image, and breaks it into either disjoint or partially overlapping tiles.
+The idea is to use a divide and conquer approach, where the full image is split into smaller images, hopefully making it faster.
+
 
 \subsubsection{Algorithm}
 
-...
+The overall algorithm divides the image into patches, to then process each one separately.
+Different tile sizes were compared, to find the best, if any.
 
 \subsubsection{Evaluation}
 
-...
+As visible in table~\ref{tab:torch.unfold}, having smaller patches increases the time required to perform the overall \textit{Locate}.
+This is likely due to the overlap between patches.
+The overlap is however necessary, to avoid bubbles split across patches to be considered as separate.
 
-% \begin{figure}
-% 	\centerline{\includegraphics[width=\locateimgsize]{images/locate/...}}
-% 	\caption{\centering ...'s result}
-% 	\label{fig:locate:...}
-% \end{figure}
+\begin{table}[ht]
+	\centering
+	\def\arraystretch{2}
+	\begin{tabularx}{\linewidth}{
+		|>{\arraybackslash}p{.2\linewidth}
+		|>{\centering\arraybackslash}X
+		|>{\centering\arraybackslash}X
+		|>{\centering\arraybackslash}X
+		|>{\centering\arraybackslash}X
+		|>{\centering\arraybackslash}X
+		|>{\centering\arraybackslash}X|
+		}
+		\hline
+		\textbf{Patch size [px]} & 501{$\times$}501  & 101{$\times$}101  & 51{$\times$}51   & 25{$\times$}25    & 15{$\times$}15    & 11{$\times$}11    \\ \hline
+		\textbf{Time [s]}         & 1.57 & 3.90 & 7.02 & 18.22 & 49.65 & 96.59 \\ \hline
+	\end{tabularx}
+	\def\arraystretch{1}
+	\caption{Time required to process 1 frame with different patch sizes}
+	\label{tab:torch.unfold}
+\end{table}
