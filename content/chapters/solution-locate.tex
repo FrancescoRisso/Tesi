@@ -1,6 +1,8 @@
 \chapter{The Locate step}
 \label{chap:locate}
 
+\newcommand{\locateimgsize}{0.9\textwidth}
+
 The task of the Locate step consists in extracting the positions of the bubbles in pixel coordinates, independently for each frame of each camera.
 
 \section{State of the art}
@@ -13,7 +15,7 @@ The images are pre-processed by the cameras: the background is removed, and the 
 Figure~\ref{fig:locate:original} depicts an example input frame.
 
 \begin{figure}
-	\centerline{\includegraphics[width=0.9\textwidth]{images/locate/_original-frame.png}}
+	\centerline{\includegraphics[width=\locateimgsize]{images/locate/_original-frame.png}}
 	\caption{\centering An example of frame returned by the cameras}
 	\label{fig:locate:original}
 \end{figure}
@@ -73,15 +75,36 @@ As described in the documentation, the \texttt{locate} function implements the f
 
 \subsubsection{Evaluation}
 
+As displayed in figure~\ref{fig:locate:trackpy}, the algorithm performed well on quality, finding about 85\% of the tracers.
+The speed was however extremely low, at just 3 FPS.
+
 \begin{figure}
-	\centerline{\includegraphics[width=0.9\textwidth]{images/locate/trackpy.png}}
+	\centerline{\includegraphics[width=\locateimgsize]{images/locate/trackpy.png}}
 	\caption{\centering Trackpy's result}
-	\label{fig:locate:tracpy}
+	\label{fig:locate:trackpy}
 \end{figure}
 
-\subsection{...}
+\subsection{Trackpy (CuPy)}
+
+For this approach, Trackpy's code was altered to use the \texttt{CuPy} library instead of \texttt{SciPy} for some operations.
+This aimed to exploit the GPU for faster computation.
+In particular, the replacement affected the functions \texttt{fourier\_gaussian}, \texttt{uniform\_filter1d} and \texttt{correlate1d}.
+
 \subsubsection{Algorithm}
+
+The algorithm is the same as Trackpy's, with some extra steps required to transfer the various arrays to/from GPU memory.
+These transfers were reduced to the minimum, to reduce the overhead as much as possible.
+
 \subsubsection{Evaluation}
+
+Figure~\ref{fig:locate:trackpy-cupy} shows the result, which for unknown reasons is slightly worse than Trackpy's, at 79\% of identified bubbles.
+The algorithm is however faster, running at 7 FPS, but still extremely far from the target.
+
+\begin{figure}
+	\centerline{\includegraphics[width=\locateimgsize]{images/locate/cuda-trackpy.png}}
+	\caption{\centering Trackpy with CuPy's result}
+	\label{fig:locate:trackpy-cupy}
+\end{figure}
 
 
 \section{Final choice}
