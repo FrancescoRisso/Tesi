@@ -20,7 +20,7 @@ The different frames are processed differently, based on their index:
 	\item First frame:
 	      \begin{enumerate}
 		      \itemsep 0em
-		      \item Perform a full frame locate;
+		      \item Perform a full frame \textit{Locate};
 		      \item Add all the bubbles into the (previously empty) list.
 	      \end{enumerate}
 	\item All other frames:
@@ -28,7 +28,7 @@ The different frames are processed differently, based on their index:
 		      \itemsep 0em
 		      \item Consider the bubbles currently in the list;
 		      \item Estimate their future position based on the current velocity and acceleration;
-		      \item In a patch around the predicted position, perform a locate;
+		      \item In a patch around the predicted position, perform a \textit{Locate};
 		      \item If the bubble is found, update its trajectory;
 		      \item Otherwhise, if a bubble is lost for some frames, remove it from the list.
 	      \end{enumerate}
@@ -36,12 +36,12 @@ The different frames are processed differently, based on their index:
 	      \begin{enumerate}
 		      \itemsep 0em
 		      \item Update the existing bubbles according to step 2;
-		      \item Perform a full frame locate, to find potential bubbles that appeared in the last $N$ frames;
-		      \item Add to the list the bubbles that were found by this full frame locate, and are not yet present in the list.
+		      \item Perform a full frame \textit{Locate}, to find potential bubbles that appeared in the last $N$ frames;
+		      \item Add to the list the bubbles that were found by this full frame \textit{Locate}, and are not yet present in the list.
 	      \end{enumerate}
 \end{enumerate}
 
-This concept is a ``meta-algorithm'', in the sense that it relies on another locate algorithm as a backend.
+This concept is a ``meta-algorithm'', in the sense that it relies on another \textit{Locate} algorithm as a backend.
 For the evaluation, multiple underying algorithm was chosen as backend.
 
 \subsubsection{Evaluation}
