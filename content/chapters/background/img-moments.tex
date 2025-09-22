@@ -1,0 +1,21 @@
+\section{Image moments}
+
+In mathematics, a \textbf{moment} is a quantitative measurement related to a function's graph.
+In particular, the moment of index $n$ of the function $f(x)$ is defined as $\int x^n f(x) dx$.
+The same underlying concept can be adapted to images, with some modifications to adapt to the two, discrete dimensions.
+
+Given a grayscale image of size$N{\times}M$, name $I(x,y)$ the intensity of its pixels.
+Then, the \textbf{raw moment of index $(p{+}q)$} can be computed as: $$M_{pq} = \sum_{x=0}^{N} \sum_{y=0}^{M} x^p{\cdot}y^q{\cdot}I(x,y)$$
+These moments are able to describe some features of the image.
+In particular, for our purpose we consider the moments of index 0 and 1:
+\begin{itemize}
+	\itemsep 0em
+	\item $M_{00}$ is the sum of the gray level of the image. For binary images, it coincides with the area;
+	\item $M_{10}$ is a measure of how far to the right the illuminated pixels are positioned. If the total area is taken into account, the $x$ coordinate of the centroid of the image is available: $\overline{x} = \sfrac{M_{10}}{M_{00}}$;
+	\item Similary, $\overline{y} = \sfrac{M_{01}}{M_{00}}$ is the $y$ coordinate of the centroid of the image.
+\end{itemize}
+% From these raw moments, \textbf{central moments} can be defined: $$\mu_{pq} = \sum_{x=0}^{N} \sum_{y=0}^{M} \left(x-\overline{x}\right)^p{\cdot}\left(y-\overline{y}\right)^q{\cdot}I(x,y)$$
+% Central moments carry more information, for example:
+% \begin{itemize}
+% 	\item $$
+% \end{itemize}

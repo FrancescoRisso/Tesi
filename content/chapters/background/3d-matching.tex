@@ -1,0 +1,15 @@
+
+\subsection{3D matching}
+
+For estimating the depth, \texttt{triangulatePoints} needs matched point.
+That is, the $i{-}th$ point provided by camera $A$ and the $i{-}th$ point provided by camera $B$ must be the two projections of the same 3D point.
+To perform this matching, traditional stereoscopy follows this procedure:
+\begin{enumerate}
+	\itemsep 0em
+	\item Choose a point in the main image;
+	\item Compute the equation of the corresponding epiline;
+	\item Consider a patch around the original point;
+	\item For each point on the epiline (in the second image), compute the similarity of a patch centered in that point with the original patch;
+	\item Select the most similar point as the match;
+	\item Compute the 3D coordinate of the point from the obtained match.
+\end{enumerate}
