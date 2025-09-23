@@ -25,7 +25,7 @@ The images are pre-processed by an FPGA included in the cameras: the background 
 Figure~\ref{fig:locate:original} depicts an example input frame.
 
 \begin{figure}
-	\centerline{\includegraphics[width=\locateimgsize]{images/locate/_original-frame.png}}
+	\centerline{\includegraphics[width=\locateimgsize]{images/locate/_original-frame-full.png}}
 	\caption{\centering An example of frame returned by the cameras}
 	\label{fig:locate:original}
 \end{figure}
@@ -64,23 +64,31 @@ It is however to be noted that the most important requirement is the speed: a wo
 
 \section{Approaches}
 
-The following sections describe the many different approaches for the \textit{Locate} step.
-Their speed and quality is evaluated on a common 1-camera, 100-frame sequence.
-For each approach, an example of the result is reported: it is the result of performing the \textit{Locate} on the frame reported in figure~\ref{fig:locate:original}.
+The following sections describe the many different approaches evaluated for the \textit{Locate} step.
+Their speed and quality is compared on a common 1-camera, 100-frame sequence.
+Each approach reports an example frame: it is the result of performing the \textit{Locate} on figure~\ref{fig:locate:original-crop}, which itself is a portion of the frame in figure~\ref{fig:locate:original}.
 
-\input{content/chapters/solution-locate/trackpy.tex}
-\input{content/chapters/solution-locate/trackpy-cupy.tex}
-\input{content/chapters/solution-locate/CNN.tex}
-\input{content/chapters/solution-locate/torch.unfold.tex}
-\input{content/chapters/solution-locate/myptv.tex}
-\input{content/chapters/solution-locate/gpu-algorithm.tex}
-\input{content/chapters/solution-locate/iterative.tex}
-\input{content/chapters/solution-locate/tractrac.tex}
-\input{content/chapters/solution-locate/hough.tex}
-\input{content/chapters/solution-locate/hough-gpu.tex}
-\input{content/chapters/solution-locate/4dptv.tex}
-\input{content/chapters/solution-locate/moments.tex}
-\input{content/chapters/solution-locate/moments-gpu.tex}
+\begin{figure}[H]
+	\centerline{\includegraphics[width=\locateimgsize]{images/locate/_original-frame.png}}
+	\caption{\centering An example of frame returned by the cameras}
+	\label{fig:locate:original-crop}
+\end{figure}
+
+
+\newpage
+\input{content/chapters/solution-locate/trackpy.tex} \newpage
+\input{content/chapters/solution-locate/trackpy-cupy.tex} \newpage
+\input{content/chapters/solution-locate/CNN.tex} \newpage
+\input{content/chapters/solution-locate/torch.unfold.tex} \newpage
+\input{content/chapters/solution-locate/myptv.tex} \newpage
+\input{content/chapters/solution-locate/gpu-algorithm.tex} \newpage
+\input{content/chapters/solution-locate/iterative.tex} \newpage
+\input{content/chapters/solution-locate/tractrac.tex} \newpage
+\input{content/chapters/solution-locate/hough.tex} \newpage
+\input{content/chapters/solution-locate/hough-gpu.tex} \newpage
+\input{content/chapters/solution-locate/4dptv.tex} \newpage
+\input{content/chapters/solution-locate/moments.tex} \newpage
+\input{content/chapters/solution-locate/moments-gpu.tex} \newpage
 
 \section{Final choice}
 
