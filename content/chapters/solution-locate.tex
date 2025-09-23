@@ -21,7 +21,7 @@ They were tested and compared with the algorithmic ideas developed within this t
 
 \subsection{Input}
 The \textit{Locate} step receives as input the videos captured by the cameras, frame by frame.
-The images are pre-processed by the cameras: the background is removed, and the resulting image is binarized with a threshold, to have distinct white bubbles over a black background.
+The images are pre-processed by an FPGA included in the cameras: the background is removed, and the resulting image is binarized with a threshold, to have distinct white bubbles over a black background.
 Figure~\ref{fig:locate:original} depicts an example input frame.
 
 \begin{figure}
@@ -83,3 +83,10 @@ For each approach, an example of the result is reported: it is the result of per
 \input{content/chapters/solution-locate/moments-gpu.tex}
 
 \section{Final choice}
+
+
+% \begin{figure}
+% 	\centerline{\includegraphics[width=.6\textwidth]{images/moments_opencv_vs_gpu.png}}
+% 	\caption{\centering Comparing speed between CPU and GPU Image Moments algorithms with respect to number of frames processed.}
+% 	\label{fig:locate:moments-cpu-vs-gpu}
+% \end{figure}
