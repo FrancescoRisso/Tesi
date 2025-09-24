@@ -31,10 +31,12 @@ Figure~\ref{fig:locate:original} depicts an example input frame.
 \end{figure}
 
 \subsection{Output}
+\label{sec:locate:output}
 
 The output of the \locate* step is a couple of \texttt{numpy} arrays.
-An array called \texttt{positions} describes the coordinates of each bubble present in a frame. It is a four-dimensional, floating-point array, where \texttt{positions[C][F][B]} describes the $B$-th bubble of the $F$-th frame of camera $C$, in the form of an \texttt{(x, y[, area])} tuple.
-Bubbles are ordered in a random, arbitrary way.
+An array called \texttt{positions} describes the coordinates of each bubble present in a frame.
+It is a four-dimensional, floating-point array, where \texttt{positions[C][F][B]} describes the $B$-th bubble of the $F$-th frame of camera $C$, in the form of an \texttt{(x, y[, area])} tuple.
+Bubbles are ordered in a random, arbitrary way for each frame: there is no correlation between two bubbles with the same $B$ but different $C$ and/or $F$.
 
 Due to \texttt{numpy} limitations, the array is pre-allocated of a fixed size: while the number of cameras is fixed, an upper limit on the number of frames and bubbles must be decided before execution.
 Knowing which frames contain meaningful data is trivial, while it is not for the number of bubbles, that can change between frame and frame.
@@ -63,6 +65,7 @@ As such, it is better to overpredict (false positives) than to miss bubbles.
 It is however to be noted that the most important requirement is the speed: a worse implementation which is speedwise above target should be preferred to a better implementation that does not meet speed requirements.
 
 \section{Approaches}
+\label{sec:locate:approaches}
 
 The following sections describe the many different approaches evaluated for the \locate* step.
 Their speed and quality is compared on a common 1-camera, 100-frame sequence.
