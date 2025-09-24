@@ -12,7 +12,7 @@ Different tile sizes were compared, to find the best, if any.
 
 \subsubsection{Evaluation}
 
-As visible in table~\ref{tab:torch.unfold}, having smaller patches increases the time required to perform the overall \textit{Locate}.
+As visible in table~\ref{tab:torch.unfold}, having smaller patches increases the time required to perform the overall \locate*.
 This is likely due to the overlap between patches.
 The overlap is however necessary, to avoid bubbles split across patches to be considered as separate.
 
@@ -29,8 +29,8 @@ The overlap is however necessary, to avoid bubbles split across patches to be co
 		|>{\centering\arraybackslash}X|
 		}
 		\hline
-		\textbf{Patch size [px]} & 501{$\times$}501  & 101{$\times$}101  & 51{$\times$}51   & 25{$\times$}25    & 15{$\times$}15    & 11{$\times$}11    \\ \hline
-		\textbf{Time [s]}         & 1.57 & 3.90 & 7.02 & 18.22 & 49.65 & 96.59 \\ \hline
+		\textbf{Patch size [px]} & 501{$\times$}501 & 101{$\times$}101 & 51{$\times$}51 & 25{$\times$}25 & 15{$\times$}15 & 11{$\times$}11 \\ \hline
+		\textbf{Time [s]}        & 1.57             & 3.90             & 7.02           & 18.22          & 49.65          & 96.59          \\ \hline
 	\end{tabularx}
 	\def\arraystretch{1}
 	\caption{Time required to process 1 frame with different patch sizes}

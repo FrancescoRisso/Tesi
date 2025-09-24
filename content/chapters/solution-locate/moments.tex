@@ -1,6 +1,6 @@
 \subsection{Image moments}
 
-Thanks the preprocessing done by FPGA, the \textit{Locate} task is equivalent to finding homogeneous regions of white pixels on top of a black background.
+Thanks the preprocessing done by FPGA, the \locate* task is equivalent to finding homogeneous regions of white pixels on top of a black background.
 This task is implemented by the function \texttt{FindContours}~\cite{findcontours} from \texttt{OpenCV}, that finds a rectangular bounding box around pixels with the same intensity.
 The precise coordinates of the bubble centroid can be found by computing the centroid (the image moments, see section~\ref{sec:backgr:moments}) of each bounding box.
 
