@@ -9,7 +9,7 @@ This lead many research groups in the fluid dynamics domain to investigate how a
 The overall project that includes my thesis is a research topic on this momentum.
 The final goal is to understand the common patterns that air follows when moving --- while apparently being still --- in a room.
 To understand this, an experimental setup was created in a small room.
-In a corner of the chamber there was a machine able to create bubbles, similar in concept to the soap bubbles that children use to play (figure~\ref{fig:experimetal-setup}). By observing the movement of these bubbles, the movement of the air would then be inferred.
+In a corner of the chamber there was a machine~\cite{bubble-machine} able to create bubbles, similar in concept to the soap bubbles that children use to play (figure~\ref{fig:experimetal-setup}). By observing the movement of these bubbles, the movement of the air would then be inferred.
 
 Since the bubbles need to move in the same way of the surrounding air, a way to cancel out all the other forces is required.
 The surface and filling material for the bubbles therefore need to be carefully chosen, in order to have an overall weight density of the bubble similar to the air density.
@@ -24,7 +24,7 @@ Due to this composed procedure, the ``bubble material'' would be required to cre
 On top of that, soap bubbles are too big for the purpose: there is a high chance that a bubble in front occludes another bubble in the back, reducing the quality of the observation.
 For this reason, the ``soap'' must be a material that creates bubbles with a maximum diameter of some millimeters.
 
-From all these considerations, the bubbles were created with a coating made of [TODO CONTROLLARE IL NOME], filled with helium.
+From all these considerations, the bubbles were created with a coating made of a proprietary substance~\cite{bubble-substance} created by Sage Action, filled with helium.
 
 \begin{figure}
 	\centerline{\includegraphics[width=0.9\textwidth]{images/experimental-setup.png}}
@@ -39,9 +39,10 @@ From all these considerations, the bubbles were created with a coating made of [
 SMA-RTY France~\cite{smarty-website}, the company where I did my internship, has as core business the selling of special-purpose, FPGA-driven cameras.
 As such, one of the two tasks contracted to them by the research group was the construction of a specific camera for this purpose.
 
-This task was tackled by their internal team of embedded developers, that created [TODO REPERIRE NOME E SPECIFICHE].
+This task was tackled by their internal team of embedded developers, that built a global shutter camera, with resolution 960{$\times$}960 and 16 bits per pixel, that could operate at a framerate of 24 FPS (or 30 FPS, if the resolution was lower).
+Each camera was equipped with an FPGA module, that was programmed to perform a background subtraction and a binarization, providing in output binary images, with white bubbles over a black background.
 
-In the final setup, 3 or 4 of these cameras can be used in a stereoscopic arrangement, as shown in figure~\ref{fig:camera-setup}
+In the final setup, 3 or 4 of these cameras can be used in a stereoscopic arrangement, as shown in figure~\ref{fig:camera-setup}.
 
 \subsection{Reconstruction algorithm acceleration}
 

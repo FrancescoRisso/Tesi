@@ -1,7 +1,7 @@
 \chapter{Experimental setup}
 \label{chap:experim-setup}
 
-During development, everything was tested on a Jetson Orin Nano, while a final benchmarking was also done ...
+During development, everything was tested on a Jetson Orin Nano, while a final benchmarking was also done on a Jetson AGX Xavier.
 
 \section{Jetson Orin Nano}
 
@@ -9,6 +9,14 @@ The Jetson Orin Nano~\cite{jetson} is a compact but powerful system developed by
 It is powered by a 6-core Arm® Cortex®-A78AE v8.2 64-bit CPU.
 It provides an 8GB, LPDDR5 RAM, and accepts an SD card and an external NVMe as mass storage.
 It also features a NVIDIA GPU with Ampere architecture, that offers 1024 CUDA cores and 32 tensor cores.
-The power consumption can oscillate between 7 and 25W: during our tests, it was always set to maximize performance. 
+The power consumption can oscillate between 7 and 25W: during our tests, it was always set to maximize performance.
 
-\section{...}
+\section{Jetson AGX Xavier}
+
+The Jetson AGX Xavier~\cite{xavier} is another embedded chip developed by NVIDIA.
+The Xavier generation means that this chip is older than the Orin, while the AGX family means that it is on the most powerful side of its generation.
+
+Jetson AGX Xavier is a system powered by a 8-core Carmel ARM CPU.
+It provides a 16GB, LPDDR4 RAM, and accepts an SD card and an external NVMe as mass storage.
+Its GPU is a NVIDIA chip with Volta architecture, with 512 CUDA cores and 64 tensor cores.
+As for the Orin, the power consumption was set to maximize performance during our tests.
