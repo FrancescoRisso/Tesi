@@ -1,9 +1,71 @@
 \chapter{The \linkDD* step}
 \label{chap:2dlink}
 
+The \link* step aims to link together consecutive time instants, by joining together the coordinates of each individual bubble across the varius time instants it is seen.
+The result is a series of \textbf{tracklets}.
+Specifically, the 2D version of the \link* step operates on 2D coordinates, producing 2D tracklets.
+
 \section{State of the art}
+
+For the \link* step, the literature research was less successful: no new approach was found, and only some of the libraries found for the \locate* step were also performing the task:
+\begin{itemize}
+	\itemsep 0em
+	\item Section~\ref{sec:link2d:trackpy} explores the Trackpy~\cite{trackpy} Python library;
+	\item Section~\ref{sec:link2d:myptv} explores the MyPTV~\cite{myptv} Python library.
+\end{itemize}
+
 \section{Requirements}
+
+\subsection{Input}
+
+The input to the \link* step coincides with the output of the previous step.
+In the pipeline is using \linkDD*, the full pipeline under exam is \locate* - \link* - \match* - \visual*.
+This means that the input to this step is the output of the \locate* step, as described in section~\ref{sec:locate:output}.
+
+\subsection{Output}
+
+The coordinates of the particles in the tracklets follow the same format as the \locate* output.
+A four-dimensional \texttt{positions} array describes the \texttt{(x, y)} coordinates of the bubbles inside \texttt{positions[C][F][B]}, $C$, $F$ and $B$ being the camera, frame and bubble indices, respectively.
+The difference with the \locate* format is that values of $B$ are scoped across the whole acquisition, not limited to the single frame.
+This means that all values with the same $C$ and $B$ will represent the same real bubble across the different frames.
+
+With this representation, valid bubbles are not clusterized at the smallest values of $B$: for example, bubble $B{=}0$ may disappear after some frames, leaving the rest of its tracklet to contain invalid positions.
+As such, the \texttt{numTracers} array is not anymore enough to describe the valid positions.
+Instead, a different array is used: \texttt{validTracers} is a three-dimensional, boolean array.
+\texttt{validTracers[C][F][B]} contains the information of whether the bubble $B$ of camera $C$ was detected at frame $F$.
+False values indicate that, at a specific frame, the bubble was either not found yet, or already lost, or the overall number of bubbles traced by camera $C$ was lower than $B$.
+
+\subsection{Speed}
+
+As for the \locate* step, each second the \linkDD* has to process the bubbles from $N{\cdot}f$ frames, where $N$ is the number of cameras and $f$ is their framerate.
+As such, the required speed for this step is the same 90 FPS that is required by the \locate* step.
+
+\subsection{Quality}
+
+The overall quality of an algorithm can be estimated by combining manual observation with the number of resulting tracklets found.
+For the manual observation, the input video was overlayed with a tail composed of points and segments, describing the last few frames of trajectory.
+Figures~TODO are examples of frames used for manual observation: the single links are quite small, it is hard to see them individually, it's much easier to consider the general view.
+
+Possible situations of reconstructed links are:
+\begin{itemize}
+	\itemsep 0em
+	\item Link correctly detected: the number of total tracklets does not change from the previous frame, and the link is coherent with the rest of the trajectory;
+	\item Link not detected: visually, it's hard to notice the missing link; however, this splits the tracklet into two pieces, increasing the number of tracklets by 1;
+	\item Wrong link detected: the number of tracklets remains the same, while an inconsistent movement is visible by eye.
+\end{itemize}
+As such, a good reconstrucion is one with few tracklets and a coherent visual representation.
+
 \section{Approaches}
-\subsection{MyPTV}
-\subsection{...}
+
+The following sections describe the different approaches evaluated for the \linkDD* step.
+They are evaluated on a 201-frames video~\cite{linkDD-original}, whose frames look like figure~\ref{fig:locate:original}.
+For the different approaches, a crop of a sample frame is reported as per the \locate* approaches (section~\ref{sec:locate:approaches}), with the tail of the tracklet.
+Full videos are available on YouTube, following the links in the corresponding citations.
+
+\newpage
+\input{content/chapters/solution-link-2d/trackpy.tex} \newpage
+\input{content/chapters/solution-link-2d/myptv.tex} \newpage
+\input{content/chapters/solution-link-2d/kalman-cpu.tex} \newpage
+\input{content/chapters/solution-link-2d/kalman-gpu.tex} \newpage
+
 \section{Final choice}
