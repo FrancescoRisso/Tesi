@@ -47,12 +47,12 @@ For the evaluation, multiple underying algorithm was chosen as backend.
 \subsubsection{Evaluation}
 
 Both the qualty and the speed of the meta-algorithm were worse than the original algorithm.
-For example, when using the Hough algorithm (see section~\ref{sec:locate:hough}), the quality was reduced from 84\% to 43\%, and the speed from 55 to 15 FPS.
+For example, when using the Hough algorithm (see section~\ref{sec:locate:hough}), the quality was reduced from 84\% to 43\% (figure~\ref{fig:locate:iterative}), and the speed from 55 to 15 FPS.
 
 This meant that the divide and conquer approach was not advantageous, even if the tiles were meaningful.
 
 \begin{figure}
 	\centerline{\includegraphics[width=\locateimgsize]{images/locate/iterative-Hough.png}}
 	\caption{\centering Iterative concept with Hough backend's result}
-	\label{fig:locate:...}
+	\label{fig:locate:iterative}
 \end{figure}

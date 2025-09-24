@@ -92,9 +92,23 @@ Each approach reports an example frame: it is the result of performing the \text
 
 \section{Final choice}
 
+All the previously described approaches were compared among each other and with the target speed.
+As visible in figure~\ref{fig:locate:speed}, none of the approaches was able to reach the target 90 FPS.
+Since no other approach or idea was available, the fastest algorithm (GPU moments, described in section~\ref{sec:locate:gpu-moments}) was chosen.
+Incidentally, the selected algorithm was also one of the best in terms of output quality.
 
-% \begin{figure}
-% 	\centerline{\includegraphics[width=.6\textwidth]{images/moments_opencv_vs_gpu.png}}
-% 	\caption{\centering Comparing speed between CPU and GPU Image Moments algorithms with respect to number of frames processed.}
-% 	\label{fig:locate:moments-cpu-vs-gpu}
-% \end{figure}
+\begin{figure}
+	\centerline{\includegraphics[width=\textwidth]{images/locate-speed-comparison.png}}
+	\caption{\centering Performance evaluation of different approaches for the \textit{Locate} step.}
+	\label{fig:locate:speed}
+\end{figure}
+
+To compare the different approaches with each other, some modifications were required to ensure consistency, for simpler comparison.
+After choosing the final algorithm, it was implemented again from scratch, in order to make it as fast as possible, with no overhead.
+This resulted in a decent speedup, which enabled the algorithm to execute at 102 FPS, faster than the target speed, as visible in figure~\ref{fig:locate:speed-cleansheet}.
+
+\begin{figure}
+	\centerline{\includegraphics[width=\textwidth]{images/locate-cleansheet-speed.png}}
+	\caption{\centering Computation speed of the chosen \textit{Locate} algorithm before and after the re-implementation, compared with the target speed.}
+	\label{fig:locate:speed-cleansheet}
+\end{figure}
