@@ -24,7 +24,7 @@ Due to this composed procedure, the ``bubble material'' would be required to cre
 On top of that, soap bubbles are too big for the purpose: there is a high chance that a bubble in front occludes another bubble in the back, reducing the quality of the observation.
 For this reason, the ``soap'' must be a material that creates bubbles with a maximum diameter of some millimeters.
 
-From all these considerations, the bubbles were created with a coating made of a proprietary substance~\cite{bubble-substance} created by Sage Action, filled with helium.
+From all these considerations, the bubbles were created with a coating made of a proprietary substance created by Sage Action~\cite{bubble-substance}, filled with helium.
 
 \begin{figure}
 	\centerline{\includegraphics[width=0.9\textwidth]{images/experimental-setup.png}}
@@ -37,12 +37,14 @@ From all these considerations, the bubbles were created with a coating made of a
 \subsection{The cameras}
 
 SMA-RTY France~\cite{smarty-website}, the company where I did my internship, has as core business the selling of special-purpose, FPGA-driven cameras.
-As such, one of the two tasks contracted to them by the research group was the construction of a specific camera for this purpose.
+As such, one of the two tasks contracted to them by the research group was the construction of a specific camera for this purpose: this task was tackled by their internal team of embedded developers.
+In the final setup, 3 or 4 cameras were used in a stereoscopic arrangement, as shown in figure~\ref{fig:camera-setup}.
 
-This task was tackled by their internal team of embedded developers, that built a global shutter camera, with resolution 960{$\times$}960 and 16 bits per pixel, that could operate at a framerate of 24 FPS (or 30 FPS, if the resolution was lower).
-Each camera was equipped with an FPGA module, that was programmed to perform a background subtraction and a binarization, providing in output binary images, with white bubbles over a black background.
-
-In the final setup, 3 or 4 of these cameras can be used in a stereoscopic arrangement, as shown in figure~\ref{fig:camera-setup}.
+\begin{figure}
+	\centerline{\includegraphics[width=0.9\textwidth]{images/cameras.jpg}}
+	\caption{\centering A tripod with 3 SMA-RTY cameras in a stereoscopic arrangement}
+	\label{fig:camera-setup}
+\end{figure}
 
 \subsection{Reconstruction algorithm acceleration}
 
@@ -54,12 +56,6 @@ That is, a delay between capturing the frame and outputting the reconstruction w
 SMA-RTY internally started working on this, with an unfinished solution that accelerated the processing to 19 FPS.
 This script was already orders of magnitude faster than the original one, but the obtained speed was still less than the target.
 On top of this, this unfinished solution was able only to do 2D tracking for each camera, it did not have the 3D reconstruction yet: implementing  it could not have other effects but slow it down.
-
-\begin{figure}
-	\centerline{\includegraphics[width=0.9\textwidth]{images/cameras.jpg}}
-	\caption{\centering A tripod with 3 SMA-RTY cameras in a stereoscopic arrangement}
-	\label{fig:camera-setup}
-\end{figure}
 
 \section{Thesis objectives}
 
