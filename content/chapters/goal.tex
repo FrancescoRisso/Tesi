@@ -53,9 +53,10 @@ As such, they contracted SMA-RTY to create an accelerated version, either by imp
 The objective of the acceleration was to have a real-time software, that would be able to process the videos live, with an allowance of some seconds of jitter.
 That is, a delay between capturing the frame and outputting the reconstruction was acceptable, as long as it did not increase over time.
 
-SMA-RTY internally started working on this, with an unfinished solution that accelerated the processing to 19 FPS.
+SMA-RTY internally started working on this, with a different solution that accelerated the processing to 19 FPS.
 This script was already orders of magnitude faster than the original one, but the obtained speed was still less than the target.
-On top of this, this unfinished solution was able only to do 2D tracking for each camera, it did not have the 3D reconstruction yet: implementing  it could not have other effects but slow it down.
+On top of this, this proposed solution was working with ToF (Time of Flight) cameras to perform the depth estimation, thus avoiding the expensive 3D reconstruction methods.
+However, the project required visible cameras, therefore this idea had to be discarded.
 
 \section{Thesis objectives}
 
