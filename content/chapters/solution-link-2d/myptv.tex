@@ -1,18 +1,12 @@
 \subsection{MyPTV}
 \label{sec:link2d:myptv}
 
-...
+MyPTV~\cite{myptv} implements \linkDD* with the \texttt{2D\_tracking} command.
 
 \subsubsection{Algorithm}
 
-...
+The library implements the ``best estimate method'' described by Ouellette-Xu~\cite{linkDD-myptv}: a nearest neighbor initial guess, followed by 4-frame tracking for the following frames.
 
 \subsubsection{Evaluation}
 
-...
-
-% \begin{figure}
-% 	\centerline{\includegraphics[width=\locateimgsize]{images/link/...}}
-% 	\caption{\centering ...'s result}
-% 	\label{fig:locate:...}
-% \end{figure}
+The speed of this approach, lower than 1 FPS, was unacceptable: as such, the quality was not even evaluated.
