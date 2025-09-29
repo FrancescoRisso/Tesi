@@ -69,3 +69,13 @@ Full videos are available on YouTube, following the links in the corresponding c
 \input{content/chapters/solution-link-2d/kalman-gpu.tex} \newpage
 
 \section{Final choice}
+
+Figure~\ref{fig:linkDD:speed} compares the speeds of the various \linkDD* approaches: Trackpy is the only one with an adequate speed.
+On top of that, it is also the approach with the best overall quality.
+As such, if the pipeline is traversed in the \locate* - \link* - \match* - \visual* order, the \link* step will use the Trackpy implementation.
+
+\begin{figure}
+	\centerline{\includegraphics[width=\locateimgsize]{images/link2d-speed-comparison.png}}
+	\caption{\centering Comparing the speeds of the different \linkDD* approaches}
+	\label{fig:linkDD:speed}
+\end{figure}
