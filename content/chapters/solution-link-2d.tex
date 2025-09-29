@@ -5,15 +5,6 @@ The \link* step aims to link together consecutive time instants, by joining toge
 The result is a series of \textbf{tracklets}.
 Specifically, the 2D version of the \link* step operates on 2D coordinates, producing 2D tracklets.
 
-\section{State of the art}
-
-For the \link* step, the literature research was less successful: no new approach was found, and only some of the libraries found for the \locate* step were also performing the task:
-\begin{itemize}
-	\itemsep 0em
-	\item Section~\ref{sec:link2d:trackpy} explores the Trackpy~\cite{trackpy} Python library;
-	\item Section~\ref{sec:link2d:myptv} explores the MyPTV~\cite{myptv} Python library.
-\end{itemize}
-
 \section{Requirements}
 
 \subsection{Input}
@@ -54,6 +45,16 @@ Possible situations of reconstructed links are:
 	\item Wrong link detected: the number of tracklets remains the same, while an inconsistent movement is visible by eye.
 \end{itemize}
 As such, a good reconstrucion is one with few tracklets and a coherent visual representation.
+
+\section{State of the art}
+
+For the \link* step, online research was less successful: no new approach was found, and only some of the libraries found for the \locate* step were also performing the task:
+\begin{itemize}
+	\itemsep 0em
+	\item Section~\ref{sec:link2d:trackpy} explores the Trackpy~\cite{trackpy} Python library;
+	\item Section~\ref{sec:link2d:myptv} explores the MyPTV~\cite{myptv} Python library.
+\end{itemize}
+As for the \link* step, they are described and evaluated in the following chapters.
 
 \section{Approaches}
 

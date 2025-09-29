@@ -5,18 +5,6 @@
 
 The task of the \locate* step consists in extracting the positions of the bubbles in pixel coordinates, independently for each frame of each camera.
 
-\section{State of the art}
-
-When searching in literature, many approaches were found to tackle the \locate* problem.
-They were tested and compared with the algorithmic ideas developed within this thesis:
-\begin{itemize}
-	\itemsep 0em
-	\item Section~\ref{sec:locate:trackpy} explores the Trackpy~\cite{trackpy} Python library;
-	\item Section~\ref{sec:locate:myptv} explores the MyPTV~\cite{myptv} Python library;
-	\item Section~\ref{sec:locate:tractrac} explores the TracTrac~\cite{tractrac} Python program;
-	\item Section~\ref{sec:locate:fourdptv} explores the 4d-ptv~\cite{fourdptv} Matlab script.
-\end{itemize}
-
 \section{Requirements}
 
 \subsection{Input}
@@ -63,6 +51,20 @@ Ideally, all tracers should be detected, since errors in the locating process wo
 As such, it is better to overpredict (false positives) than to miss bubbles.
 
 It is however to be noted that the most important requirement is the speed: a worse implementation which is speedwise above target should be preferred to a better implementation that does not meet speed requirements.
+
+\section{State of the art}
+
+When searching on the Internet some existing solutions to perform the \locate* task, the following approaches were found:
+\begin{itemize}
+	\itemsep 0em
+	\item The Trackpy~\cite{trackpy} Python library (evaluated in section~\ref{sec:locate:trackpy});
+	\item The MyPTV~\cite{myptv} Python library (evaluated in section~\ref{sec:locate:myptv});
+	\item The TracTrac~\cite{tractrac} Python program (evaluated in section~\ref{sec:locate:tractrac});
+	\item The 4d-ptv~\cite{fourdptv} Matlab script (evaluated in section~\ref{sec:locate:fourdptv}).
+\end{itemize}
+In the aim of finding the best approach, the listed algorithms were evaluated in the same way as novel algorithmic ideas.
+In some cases, potential weaknesses in the algorithm were found: some of the new approaches developed within this thesis are therefore evolutions of these algorithms.
+For this reason, their description and evaluation is in the following chapters.
 
 \section{Approaches}
 \label{sec:locate:approaches}
