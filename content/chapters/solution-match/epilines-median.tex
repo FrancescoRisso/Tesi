@@ -1,6 +1,47 @@
 \subsection{Epilines + median correction}
 \label{sec:match:epi-median}
 
+As previously stated, the offset between two camera views of the same bubble is consistent across all the bubbles in the scene.
+This fact is used in this approach to find and potentially correct mistakes.
+Originally, the average displacement was considered as comparison term, but it would be very sensitive to errors.
+Instead, the median displacement is computed, as a vector whose components are the medians of the displacement componets.
+As an example, displacements of $(10,)$, $(11,0)$ and $(-3, -1)$ would generate a median displacement of $(10, 0)$.
+
 \subsubsection{Algorithm}
 
+For each bubble in the main camera, each other camera is processed with the following steps:
+\begin{enumerate}
+	\itemsep 0em
+	\item For each bubble in the main frame:
+	      \begin{enumerate}
+		      \item Compute the coefficients $a$, $b$ and $c$ of the epiline $ax+by+c{=}0$;
+		      \item Compute the distance (with a scale factor) of all bubbles $(x_i, y_i)$ in the side camera to the epiline: $d = ax_i + by_i + c$;
+		      \item Select as candidate match the bubble with $d=min_i(d_i)$;
+		      \item Compare $d$ with the reasonability threshold $T$:
+		            \begin{itemize}
+			            \item If $d<T$, consider the bubble as a valid (temporary) match;
+			            \item Otherwhise, consider the original bubble as unmatched.
+		            \end{itemize}
+	      \end{enumerate}
+	\item Compute the median of all the matches of the frame;
+	\item For each bubble in the main frame:
+	      \begin{enumerate}
+		      \item Compute the displacement and compare it with the median:
+		            \begin{itemize}
+			            \item If both the difference in length and the angle between the vectors are under specific thresholds, confirm the match, and continue with the next bubble;
+			            \item Otherwhise, correct the match by performing the following steps;
+		            \end{itemize}
+		      \item With a procedure similar to steps 1.a to 1.d, find the $N$ (parameter) bubbles closest to the epiline;
+		      \item Among them, find the one whose displacement is the most similar to the median displacement;
+		      \item Check the correctness of this new match:
+		      \begin{itemize}
+				\item If the bubble is further than the threshold $T$ (step 1.d) from the epiline, consider the match wrong and remove it;
+				\item If the new displacement still does not satisfy the distance and angle from the median, consider the match wrong and remove it;
+				\item Otherwhise, correct the previous match with this one.
+			  \end{itemize}
+	      \end{enumerate}
+\end{enumerate}
+
 \subsubsection{Evaluation}
+
+This algorithm runs at 55 FPS, while improving on the quality: for the 30-bubbles dataset the distribution of correct/missed/wrong matches is 27/2/1, while for the 100-bubbles dataset it is 74/20/6.
