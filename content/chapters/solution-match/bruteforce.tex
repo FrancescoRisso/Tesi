@@ -1,6 +1,30 @@
 \subsection{Brute force}
 \label{sec:match:bruteforce}
 
+This approach leverages the fact that more than two cameras are present, not only as a confirmation, but as a knowledge extracting method.
+
+Given a bubble on the main camera, it should be matched to a specific bubble on the other two cameras.
+If the 3D position is reconstructed from the main and one side camera, the result should be similar to the reconstuction done with the main and the other side camera.
+On the other side, wrong matches would reconstruct totally different 3D coordinates.
+
 \subsubsection{Algorithm}
 
+\begin{enumerate}
+	\itemsep 0em
+	\item For each bubble in the main camera:
+	      \begin{enumerate}
+		      \item Reconstruct the 3D position matching it with all the bubbles on one side camera. The result will be a set of 3D points ($P_i$);
+		      \item Do the same, with the other side camera (to obtain a set $P_j'$);
+		      \item Find the points $p\in P_i$ and $p'\in P_j'$ that minimize their distance;
+		      \item Check their distance:
+		      \begin{itemize}
+				\item If it is below a specific threshold, the two bubbles are considered the same, and the two matches are approved;
+				\item Otherwhise, the reconstructed bubbles are the closest plausible, but still different bubbles, hence the match is considered missing.
+			  \end{itemize}
+	      \end{enumerate}
+\end{enumerate}
+
 \subsubsection{Evaluation}
+
+This approach was not evaluated directly, since a very simple addition could highly reduce its computational cost.
+This algorithm was therefore only considered as starting idea for the approach described in the next paragraph.
