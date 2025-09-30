@@ -63,7 +63,16 @@ The following chapters describe the different approaches explored for the \match
 The evaluation was performed separately for speed and quality, with the speed measured on the same dataset as the \linkDD* step.
 For the quality, it was not possible to have a ground truth containing the correct match between two cameras, neither with a real dataset nor with a synthetic one.
 As such, a manual classification of correct/missed/wrong matches was done.
-In particular, this evaluation was performed using two single-frame, Blender-generated datasets, with respectively 30 and 100 bubbles.
+As visible in figure~\ref{fig:match:example}, the displacement between the view of two cameras is mostly constant: checking this consistency allows a human eye to evaluate the correcness of a match.
+
+The qualitative evaluation was performed using two Blender-generated datasets, composed by a single frame, with respectively 30 and 100 bubbles.
+An attempt was done with more bubbles, but the image was too crowded to identify correct or wrong matches.
+
+\begin{figure}[H]
+	\centerline{\includegraphics[width=0.8\textwidth]{images/match-observation.png}}
+	\caption{\centering An example of \match*: the bubbles seen by the main (white) camera, matched to the corresponding bubbles seen from the other two (red, green) cameras}
+	\label{fig:match:example}
+\end{figure}
 
 \newpage
 \input{content/chapters/solution-match/epilines.tex} \newpage
