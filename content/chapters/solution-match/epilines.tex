@@ -33,3 +33,4 @@ Chosen a ``main'' camera, the algorithm processes each camera with the following
 The algorithm had excellent speed, running at 300 FPS, which is 10x faster than the requirements.
 While the quality looked quite good with the smaller dataset (with 28/0/2 correct/missed/wrong matches), the performance is much worse with more bubbles (51/4/45).
 As such, there is space for improvement, trading some of the useless speed with better quality.
+In fact, a possible improvement could be to have some more data to describe the bubbles: the match could be chosen as the bubble with the most similar description, among those close to the epiline.

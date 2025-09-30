@@ -1,6 +1,25 @@
 \subsection{Epilines + short trajectory}
 \label{sec:match:epi-traj}
 
+As discussed in section~\ref{sec:match:epiline}, it would be beneficial to have some more information about the bubbles, more than just the position.
+While section~\ref{sec:match:traj} shows that evaluating many frames of the trajectory can lead to high computational cost, considering just some frames of trajectory could be a good way to describe a bubble to facilitate the matching.
+
 \subsubsection{Algorithm}
 
+Each camera is processed according to the following algorithm:
+\begin{enumerate}
+	\itemsep 0em
+	\item Compute the $N$-frames trajectory of all bubbles of both the main and the side camera, storing them as relative offsets from the next
+	\item For each bubble in the main camera:
+	      \begin{enumerate}
+		      \item Compute the coefficients $a$, $b$ and $c$ of the epiline $ax+by+c{=}0$;
+		      \item Compute the distance (with a scale factor) of all bubbles $(x_i, y_i)$ in the side camera to the epiline: $d_i = ax_i + by_i + c$;
+		      \item Consider only the bubbles with $d_i<T$, for a specific threshold $T$ (if there are none, leave the bubble unmatched);
+		      \item Compute the similarity between the bubble in the main camera and the others, considering the trajectory values;
+		      \item Select as match the bubble with highest similarity, provided that it has at least a minimum value for that (if not, leave the bubble unmatched).
+	      \end{enumerate}
+\end{enumerate}
+
 \subsubsection{Evaluation}
+
+While working at acceptable speed (125 FPS), the quality of the result was not so great: in the 30-bubbles dataset the number of correct/missed/wrong matches was 12/2/16, and it was 74/20/6 for the 100-bubbles dataset.

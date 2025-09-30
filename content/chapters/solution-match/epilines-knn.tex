@@ -15,11 +15,11 @@ The algorithm processes each camera with the following steps:
 		      \item Compute the coefficients $a$, $b$ and $c$ of the epiline $ax+by+c{=}0$;
 		      \item Compute the distance (with a scale factor) of all bubbles $(x_i, y_i)$ in the side camera to the epiline: $d_i = ax_i + by_i + c$;
 		      \item Consider only the bubbles with $d_i<T$, for a specific threshold $T$ (if there are none, leave the bubble unmatched);
-		      \item Compute the cosine similarity between the bubble in the main camera and the others;
+		      \item Compute the cosine similarity between the bubble in the main camera and the others, considering the positions of the kNNs;
 		      \item Select as match the bubble with highest cosine similarity, provided that it has at least a minimum value for that (if not, leave the bubble unmatched).
 	      \end{enumerate}
 \end{enumerate}
 
 \subsubsection{Evaluation}
 
-While working at acceptable speed (122 FPS), the quality of the result was not acceptable: in the 30-bubbles dataset the number of correct/missed/wrong bubbles was 2/28/0, and it was 1/98/1 for the 100-bubbles dataset.
+Similarly to the previous approach, this algorithm has an acceptable speed (122 FPS), but an extremely bad quality, with 2/28/0 correct/missed/wrong matches in the 30-bubbles dataset, and 1/98/1 in the 100-bubbles dataset.
