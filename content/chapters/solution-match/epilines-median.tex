@@ -15,7 +15,7 @@ For each bubble in the main camera, each other camera is processed with the foll
 	\item For each bubble in the main frame:
 	      \begin{enumerate}
 		      \item Compute the coefficients $a$, $b$ and $c$ of the epiline $ax+by+c{=}0$;
-		      \item Compute the distance (with a scale factor) of all bubbles $(x_i, y_i)$ in the side camera to the epiline: $d = ax_i + by_i + c$;
+		      \item Compute the distance (with a scale factor) of all bubbles $(x_i, y_i)$ in the side camera to the epiline: $d_i = ax_i + by_i + c$;
 		      \item Select as candidate match the bubble with $d=min_i(d_i)$;
 		      \item Compare $d$ with the reasonability threshold $T$:
 		            \begin{itemize}
