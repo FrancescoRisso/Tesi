@@ -1,6 +1,16 @@
 \subsection{Long trajectory}
 \label{sec:match:traj}
 
+The research group that commissioned this thesis was working in parallel on a way to estimate calibration data without the need of a calibration process.
+Instead, the model developed tried to perform a \match* (without knowledge of the epilines), to infer the calibration data from it.
+Since this task was in common among the two projects, their solution was also considered and evaluated for the scope our purpose.
+
 \subsubsection{Algorithm}
 
+The solution uses a Deep Learning model, Lightglue TODO, to match long trajectories seen from different cameras.
+In particular, the model performed the match on a specific frame by looking at the 200-frames-long trajectories that started in the frame itself.
+
 \subsubsection{Evaluation}
+
+While this approach was useful in the complex situation of autocalibration, for our task it was too computationally intensive.
+Indeed, the maximum speed obtainable with this approach was 3 FPS, too far from the target 30 FPS.
