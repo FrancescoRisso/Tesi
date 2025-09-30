@@ -84,3 +84,13 @@ An attempt was done with more bubbles, but the image was too crowded to identify
 \input{content/chapters/solution-match/bruteforce-epilines.tex} \newpage
 
 \section{Final choice}
+
+Figure~\ref{fig:match:comparison} compares speed and quality of the different approaches.
+Due to the real-time constraint, the long trajectories and the brute force algorithms are discarded.
+Among the remaining approaches, the median approach is the best one, hence it is the selected one. 
+
+\begin{figure}
+	\centerline{\includegraphics[width=0.9\textwidth]{images/3d-matching-comparison-without-chosen.png}}
+	\caption{\centering Comparing speed and quality of the various \match* approaches}
+	\label{fig:match:comparison}
+\end{figure}
