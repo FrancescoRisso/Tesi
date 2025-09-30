@@ -1,5 +1,5 @@
-
 \section{Stereoscopy}
+\label{sec:backgr:stereo}
 
 Our brain is able to understand depth by leveraging the fact that we have two eyes in slightly different positions.
 This mechanism is called stereoscopy, and it can be used by a computer vision system, provided that it has two or more cameras.
@@ -23,6 +23,7 @@ In order to do so, the relative position of the cameras needs to be known: all c
 In particular, the function \texttt{triangulatePoints} from \texttt{OpenCV} is able to reconstruct the 3D positions given the 2D matched observations, the intrinsic and distortion parameters of the two cameras, and the extrinsic matrix of the couple.
 
 \subsection{Epilines}
+\label{sec:backgr:stereo:epilines}
 
 As stated before, the point $P_A$ could correspond to a full line of 3D points.
 When seen by camera $B$ (with a different point of view), this line translates to a 2D line in $\pi_B$ (red in figure~\ref{fig:epipolarity}).

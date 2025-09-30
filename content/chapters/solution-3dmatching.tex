@@ -1,22 +1,77 @@
 \chapter{The \match* step}
 \label{chap:matching}
 
+The \match* step has the objective of leveraging the different camera views to estimate the depth (and, consequently, the 3D coordinates) of the bubbles.
+The depth estimation is done with the technique of stereoscopy (see section~\ref{sec:backgr:stereo}).
+In particular, the \match* step needs to match the same bubble across different cameras, to then call \texttt{OpenCV}'s \texttt{triangulatePoints} function for reconstructing the 3D position.
+
 \section{Requirements}
 
 \subsection{Input}
 
+Depending on the pipeline order, the input to the \match* step can be either the output of the \locate* step or the one of the \linkDD* step.
+In both cases, the input is composed of two arrays:
+\begin{itemize}
+	\itemsep 0em
+	\item the array of the coordinates \texttt{positions[C][F][B]} (described in sections~\ref{sec:locate:output} and \ref{sec:linkDD:output}), which has the same format in both cases;
+	\item the representation of valid coordinates, which varies based on the previous step: \locate* has a \texttt{numTracers[C][F]}, as explained in section~\ref{sec:locate:output}, while \linkDD* uses a larger \texttt{validTracers[C][F][B]}, described in section~\ref{sec:linkDD:output}.
+\end{itemize}
+In both cases, the \match* operates on the coordinates of the valid 2D coordinates: an initial step extracts such coordinates from the \texttt{positions} array, leveraging the other array in the correct way.
+After that, the \match* can be executed without caring about the source of the data.
+
 \subsection{Output}
+\label{sec:match:output}
+
+The \match* step's output consists in a couple of arrays, similar to the output of the \linkDD* (see section~\ref{sec:linkDD:output}).
+
+The 3D coordinates of the bubbles are stored in a three-dimensional, floating array called \texttt{positions}. \texttt{positions[F][B]} contains the coordinate of the $B$-th bubble in the $F$-th time instant, as a tuple \texttt{(x, y, z)}.
+The camera index disappeared, since this step combines the information from all cameras into a single, 3D description of the bubbles.
+
+To represent the valid bubbles, a three-dimensional, boolean \texttt{validTracers} array is used.
+\texttt{validTracers[F][B]} marks whether \texttt{positions[F][B]} contains a valid position or not.
+Similarly to the \texttt{positions} array, the passage from 2D to 3D removes the dimension of the camera index.
+
+Depending on the source of data, this step can either produce plain 3D coordinates, or 3D tracklets.
+If the input is the \locate* step, then the bubble coordinates will be all grouped towards smaller $B$s, and there will be no correlation between bubbles with the same index in consecutive frames.
+Instead, if the input is the \linkDD* step, the distribution of real coordinates within the $B$ dimension of the arrays will be less regular, due to the added constraint that ``same value for $B$ implies same real bubble''.
 
 \subsection{Speed}
 
+To respect the real time constraint, the \match* step should operate at 30 FPS, ideally independently of the number of cameras.
+
 \subsection{Quality}
+
+The matching algorithms start from a bubble in one camera, and try to find the matching bubble on the other cameras.
+Such attempt can have three outcomes:
+\begin{itemize}
+	\itemsep 0em
+	\item correct match: the bubble is matched to the correct one in the other camera. This is the ideal case, since it would lead to a correct 3D reconstrucion;
+	\item missing match: the original bubble is not matched to another one. Since the setup is composed by more than 2 cameras, a missed match is not too terrible, since it is still possible that the matches in the other cameras are correct, to have a correct 3D reconstruction;
+	\item wrong match: the bubble is matched to a wrong one. This leads to certain reconstrucion errors, since the \texttt{triangulatePoints} function will have either wrong or incoherent information.
+\end{itemize}
+The ideal matching algorithm is therefore one that produces correct matches for all bubbles, but if it's not possible, it's better to have missing matches rather than wrong matches.
 
 \section{State of the art}
 
+For the \match*, no existing solution was found when looking on the Internet: the matching is usually done on full images, not on single sets of cordinates.
+The only starting point available for this step was the original tool developed by the research group, the objective of the acceleration.
+In particular, it allows to choose between an epiline-only approach (examined in section~\ref{sec:match:epiline}) and a brute force algorithm (evaluated in section~\ref{sec:match:bruteforce}).
+
 \section{Approaches}
 
-\subsection{MyPTV}
+The following chapters describe the different approaches explored for the \match* step
+The evaluation was performed separately for speed and quality, with the speed measured on the same dataset as the \linkDD* step.
+For the quality, it was not possible to have a ground truth containing the correct match between two cameras, neither with a real dataset nor with a synthetic one.
+As such, a manual classification of correct/missed/wrong matches was done.
+In particular, this evaluation was performed using two single-frame, Blender-generated datasets, with respectively 30 and 100 bubbles.
 
-\subsection{...}
+\newpage
+\input{content/chapters/solution-match/epilines.tex} \newpage
+\input{content/chapters/solution-match/epilines-median.tex} \newpage
+\input{content/chapters/solution-match/epilines-knn.tex} \newpage
+\input{content/chapters/solution-match/epilines-traj.tex} \newpage
+\input{content/chapters/solution-match/traj.tex} \newpage
+\input{content/chapters/solution-match/bruteforce.tex} \newpage
+\input{content/chapters/solution-match/bruteforce-epilines.tex} \newpage
 
 \section{Final choice}
