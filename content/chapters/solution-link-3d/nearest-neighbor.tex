@@ -1,0 +1,23 @@
+\subsection{Nearest neighbor}
+\label{sec:link3d:NN}
+
+Moving from 2D space to 3D space, the bubbles are naturally much sparser.
+As such, the 3D bubbles are far enough away, that the nearest neighbor is undoubtedly the correct link.
+
+\subsubsection{Algorithm}
+
+For each bubble in a time frame, the link towards the next frame is chosen as follow:
+\begin{enumerate}
+	\itemsep 0em
+	\item Among the 3D bubbles in the next frame, find the one closest to the current position.
+	\item Evaluate the distance $d$ between the current and selected position with respect to a threshold $T$:
+	      \begin{itemize}
+		      \item If $d>T$, it's not plausible that the bubble has moved such distance in such short time: the original bubble is likely lost, and the selected one is probably a different bubble. As such, consider the tracklet to end at the current frame;
+		      \item If instead $d\le T$, the movement is plausible, therefore the two bubbles are linked.
+	      \end{itemize}
+\end{enumerate}
+
+\subsubsection{Evaluation}
+
+The semplicity of this algorithm makes it extremely fast, with the potential to reach 5000 FPS.
+The main advantage is however the reconstruction quality: in the evaluation, only about 4800 tracklets were created.

@@ -1,22 +1,47 @@
 \chapter{The \linkDDD* step}
 \label{chap:3dlink}
 
+The \link* step aims to link together consecutive time instants, by joining the coordinates of each individual bubble across the varius time instants it is seen.
+The result is a series of \textbf{tracklets}.
+Specifically, the 3D version of the \link* step operates on 3D coordinates, producing 3D tracklets.
+
 \section{Requirements}
 
 \subsection{Input}
 
+The data for this pipeline step comes from the output of the \match* step, described in section~\ref{sec:match:output}.
+The input is therefore composed of two arrays, \texttt{positions} and \texttt{validTracers}.
+
 \subsection{Output}
+
+Similarly to the \linkDD* step (whose ouptut is described in section~\ref{sec:linkDD:output}), the output format is the same as the input, with the added constraint that equal bubble indices across different framess imply same real-life bubble.
+
+The output will be therefore composed of the three-dimensional, floating-point \texttt{positions[F][B]} array, with the \texttt{(x, y, z)} coordinates of bubble $B$ at time $F$, and the corresponding two-dimensional, boolean validity array \texttt{validTracers}.
 
 \subsection{Speed}
 
+Working directly on 3D data and not on the single cameras, the \linkDDD* only needs a speed of 30 FPS, similar to the \match* step.
+
 \subsection{Quality}
+
+Similarly to the \linkDD* step, the quality can be estimated by number of tracklets and visual inspection.
 
 \section{State of the art}
 
+Similarly to the previous steps, further research did not find more tools for performing the \linkDDD* task.
+Among the ones already found, only Trackpy~\cite{trackpy} was able to perform \linkDDD*.
+Its algorithm and performance are evaluated in section~\ref{sec:link3d:trackpy}.
+
 \section{Approaches}
 
-\subsection{MyPTV}
+In the following sections, the two approaches to \linkDDD* are explained.
+They are evaluated on the same 201-frames dataset used for the \linkDD* step, preprocessed by the \match* step.
 
-\subsection{...}
+\newpage
+\input{content/chapters/solution-link-3d/trackpy.tex} \newpage
+\input{content/chapters/solution-link-3d/nearest-neighbor.tex} \newpage
 
 \section{Final choice}
+
+Differently from the other steps, all approaches of \linkDDD* had sufficient speed.
+As such, the choice fell on the simple Nearest Neighbor, which had better quality.
