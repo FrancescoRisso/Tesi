@@ -11,8 +11,8 @@ These transfers were reduced to the minimum, to reduce the overhead as much as p
 
 \subsubsection{Evaluation}
 
-Figure~\ref{fig:locate:trackpy-cupy} shows the result, which for unknown reasons is slightly worse than Trackpy's, at 79\% of identified bubbles.
-The algorithm is however faster, running at 7 FPS, but still extremely far from the target.
+Figure~\ref{fig:locate:trackpy-cupy} shows the result, which for unknown reasons is different than Trackpy's: it lost the offset problem, but the percentage of identified bubbles reduced to 79\%.
+Speedwise, the algorithm is slightly faster, running at 7 FPS: still extremely far from the target.
 
 \begin{figure}
 	\centerline{\includegraphics[width=\locateimgsize]{images/locate/cuda-trackpy.png}}

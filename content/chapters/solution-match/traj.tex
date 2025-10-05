@@ -7,10 +7,10 @@ Since this task was in common among the two projects, their solution was also co
 
 \subsubsection{Algorithm}
 
-The solution uses a Deep Learning model, Lightglue TODO, to match long trajectories seen from different cameras.
+The solution uses a Deep Learning model, Lightglue~\cite{lightglue}, to match long trajectories seen from different cameras.
 In particular, the model performed the match on a specific frame by looking at the 200-frames-long trajectories that started in the frame itself.
 
 \subsubsection{Evaluation}
 
-While this approach was useful in the complex situation of autocalibration, for our task it was too computationally intensive.
+While this approach was useful in the complex situation of auto-calibration, for our task it was too computationally intensive.
 Indeed, the maximum speed obtainable with this approach was 3 FPS, too far from the target 30 FPS.

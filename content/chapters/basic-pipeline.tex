@@ -4,19 +4,20 @@
 Commonly, the particle tracking pipeline is split into the following sub tasks:
 \begin{enumerate}
 	\itemsep 0em
-	\item \textbf{\locate* \textit{:}} considering each frame of each camera separately, find the pixel coordinates of all the bubbles in the image;
-	\item \textbf{\link* \textit{:}} consider two consecutive time instants. For each bubble in the first frame, link it to where it moved in the next frame, to form \textbf{tracklets}. This step must take into account potential bubbles that appear or disappear;
-	\item \textbf{\match* \textit{:}} consider corresponding frames of the different cameras. For each bubble in one camera, find which is, if any, the corresponding bubble in the other cameras. This information is then used to reconstruct the 3D position of the bubbles;
-	\item \textbf{\visual* \textit{:}} display in a suitable way the reconstructed 3D scene on a 2D screen.
+	\item \textbf{\locate*\textit{:}} considering each frame of each camera separately, find the pixel coordinates of all the bubbles in the image;
+	\item \textbf{\link*\textit{:}} consider two consecutive time instants. For each bubble in the first frame, link it to where it moved in the next frame, to form trajectories (called \textbf{tracklets}). This step must take into account the fact that bubbles may appear or disappear;
+	\item \textbf{\match*\textit{:}} consider simultaneous frames of the different cameras. For each bubble in one camera, find which is, if any, the corresponding bubble in the other cameras. This information is then used to reconstruct the 3D position of the bubbles;
+	\item \textbf{\visual*\textit{:}} display in a suitable way the reconstructed 3D scene on a 2D screen.
 \end{enumerate}
 In literature, some approaches follow the order 1-2-3-4 (blue in figure~\ref{fig:pipeline:order}), performing a camera-wise \link*.
 Some other libraries chose to invert 2 and 3, obtaining a 1-3-2-4 order (orange in figure~\ref{fig:pipeline:order}).
-This anticipates the 3D reconstruction before the \link*, thus performing a single \link* operation on 3D coordinate, obtaining 3D tracklets.
+This anticipates the 3D reconstruction before the \link*, thus performing a single \link* operation on 3D coordinates, obtaining 3D tracklets.
 
 In the next paragraphs, each step will be analyzed separately.
-For each step, I will compare all solutions found in literature among themselves, and with the ones developed by me, to find the overall best one.
+For each step, all solutions found in literature will be compared both among themselves, and with the ones developed within the scope of this thesis, to find the overall best one.
 
-\begin{figure}
+% TODO perchè qui è centrata?
+\begin{figure}[!t]
 	\centerline{\includegraphics[width=\textwidth]{images/pipeline-orders.png}}
 	\caption{\centering The two different orders in which the pipeline can be executed}
 	\label{fig:pipeline:order}

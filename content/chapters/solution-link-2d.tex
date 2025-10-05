@@ -1,8 +1,8 @@
 \chapter{The \linkDD* step}
 \label{chap:2dlink}
 
-The \link* step aims to link together consecutive time instants, by joining the coordinates of each individual bubble across the varius time instants it is seen.
-The result is a series of \textbf{tracklets}.
+The \link* step aims to link together consecutive time instants, by joining the coordinates of each individual bubble across the various time instants it is seen.
+The result is a series of trajectories, or \textbf{tracklets}.
 Specifically, the 2D version of the \link* step operates on 2D coordinates, producing 2D tracklets.
 
 \section{Requirements}
@@ -10,7 +10,7 @@ Specifically, the 2D version of the \link* step operates on 2D coordinates, prod
 \subsection{Input}
 
 The input to the \link* step coincides with the output of the previous step.
-In the pipeline is using \linkDD*, the full pipeline under exam is \locate* - \link* - \match* - \visual*.
+If the pipeline is using \linkDD*, the full pipeline under exam is \locate* - \link* - \match* - \visual*.
 This means that the input to this step is the output of the \locate* step, as described in section~\ref{sec:locate:output}.
 
 \subsection{Output}
@@ -21,7 +21,7 @@ A four-dimensional \texttt{positions} array describes the \texttt{(x, y)} coordi
 The difference with the \locate* format is that values of $B$ are scoped across the whole acquisition, not limited to the single frame.
 This means that all values with the same $C$ and $B$ will represent the same real bubble across the different frames.
 
-With this representation, valid bubbles are not clusterized at the smallest values of $B$: for example, bubble $B{=}0$ may disappear after some frames, leaving the rest of its tracklet to contain invalid positions.
+With this representation, valid bubbles are not clustered at the smallest values of $B$: for example, bubble $B{=}0$ may disappear after some frames, leaving the rest of its tracklet to contain invalid positions.
 As such, the \texttt{numTracers} array is not anymore enough to describe the valid positions.
 Instead, a different array is used: \texttt{validTracers} is a three-dimensional, boolean array.
 \texttt{validTracers[C][F][B]} contains the information of whether the bubble $B$ of camera $C$ was detected at frame $F$.
@@ -29,14 +29,14 @@ False values indicate that, at a specific frame, the bubble was either not found
 
 \subsection{Speed}
 
-As for the \locate* step, each second the \linkDD* has to process the bubbles from $N{\cdot}f$ frames, where $N$ is the number of cameras and $f$ is their framerate.
+As for the \locate* step, each second the \linkDD* has to process the bubbles from $N{\cdot}f$ frames, where $N$ is the number of cameras and $f$ is their frame rate.
 As such, the required speed for this step is the same 90 FPS that is required by the \locate* step.
 
 \subsection{Quality}
 
 The overall quality of an algorithm can be estimated by combining manual observation with the number of resulting tracklets found.
-For the manual observation, the input video was overlayed with a tail composed of points and segments, describing the last few frames of trajectory.
-Figures~TODO are examples of frames used for manual observation: the single links are quite small, it is hard to see them individually, it's much easier to consider the general view.
+For the manual observation, the input video was overlay-ed with a tail composed of points and segments, describing the last few frames of trajectory.
+Figures~\ref{fig:linkDD:trackpy} and \ref{fig:linkDD:kalmangpu} are examples of frames used for manual observation: the single links are quite small, it is hard to see them individually, it's much easier to consider the general view.
 
 Possible situations of reconstructed links are:
 \begin{itemize}
@@ -45,7 +45,7 @@ Possible situations of reconstructed links are:
 	\item Link not detected: visually, it's hard to notice the missing link; however, this splits the tracklet into two pieces, increasing the number of tracklets by 1;
 	\item Wrong link detected: the number of tracklets remains the same, while an inconsistent movement is visible by eye.
 \end{itemize}
-As such, a good reconstrucion is one with few tracklets and a coherent visual representation.
+As such, a good reconstruction is one with few tracklets and a coherent visual representation.
 
 \section{State of the art}
 

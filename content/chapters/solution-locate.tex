@@ -12,12 +12,6 @@ The \locate* step receives as input the videos captured by the cameras, frame by
 The images are pre-processed by an FPGA included in the cameras: the background is removed, and the resulting image is binarized with a threshold, to have distinct white bubbles over a black background.
 Figure~\ref{fig:locate:original} depicts an example input frame.
 
-\begin{figure}
-	\centerline{\includegraphics[width=\locateimgsize]{images/locate/_original-frame-full.png}}
-	\caption{\centering An example of frame returned by the cameras}
-	\label{fig:locate:original}
-\end{figure}
-
 \subsection{Output}
 \label{sec:locate:output}
 
@@ -27,17 +21,24 @@ It is a four-dimensional, floating-point array, where \texttt{positions[C][F][B]
 Bubbles are ordered in a random, arbitrary way for each frame: there is no correlation between two bubbles with the same $B$ but different $C$ and/or $F$.
 
 Due to \texttt{numpy} limitations, the array is pre-allocated of a fixed size: while the number of cameras is fixed, an upper limit on the number of frames and bubbles must be decided before execution.
-Knowing which frames contain meaningful data is trivial, while it is not for the number of bubbles, that can change between frame and frame.
+Knowing which frame indices contain meaningful data is trivial, since the experiment time is choosable by the user.
+The number of bubbles found within a frame, however, is not known, mostly because it is not stable over time.
 For this reason, a second array was introduced: \texttt{numTracers} is a two-dimensional, integer array.
 \texttt{numTracers[C][F]} carries the information of how many tracers are valid inside the $F$-th frame of camera $C$.
-The coordinates of the valid tracers will therefore be \texttt{positions[C][F][numTracers[C][F]]}.
+The coordinates of the valid tracers will therefore be \texttt{positions[C][F][:numTracers[C][F]]}.
+
+\begin{figure}
+	\centerline{\includegraphics[width=\locateimgsize]{images/locate/_original-frame-full.png}}
+	\caption{\centering An example of frame returned by the cameras}
+	\label{fig:locate:original}
+\end{figure}
 
 \subsection{Speed}
 
 When used on a setup of $N$ cameras with frame rate $f$ each, the \locate* step would receive $N{\cdot}f$ independent frames each second.
 To respect the real-time constraint, the \locate* step would therefore need to operate at a minimum of $N{\cdot}f$ FPS.
 
-When I did the analysis on the \locate* step, the plan was to have 3 cameras working at 30 FPS, requiring a 90 FPS \locate* step.
+When the analysis was performed on the \locate* step, the plan was to have 3 cameras working at 30 FPS, requiring a 90 FPS \locate* step.
 Later, the cameras turned out to be slower, at 24 FPS, but there were 4: the final \locate* implementation was able to manage also these 96 FPS.
 
 \subsection{Quality}
@@ -45,7 +46,7 @@ Later, the cameras turned out to be slower, at 24 FPS, but there were 4: the fin
 Ideally, all tracers should be detected, since errors in the locating process would propagate to future steps:
 \begin{itemize}
 	\itemsep 0em
-	\item \textbf{False positives}: the \match* phase will have more candidates, leading to \textit{possible} wrong reconstructions: the \match* can both choose the correct bubble, or the one added by the error (or another real one);
+	\item \textbf{False positives:} the \match* phase will have more candidates, leading to \textit{possible} wrong reconstructions: the \match* can both choose the correct bubble, or the one added by the error (or another real one);
 	\item \textbf{False negatives:} the same bubble in another frame will not have the correct match, leading to \textit{certain} wrong reconstructions.
 \end{itemize}
 As such, it is better to overpredict (false positives) than to miss bubbles.
@@ -54,7 +55,7 @@ It is however to be noted that the most important requirement is the speed: a wo
 
 \section{State of the art}
 
-When searching on the Internet some existing solutions to perform the \locate* task, the following approaches were found:
+When searching on the Internet for existing solutions to perform the \locate* task, the following approaches were found:
 \begin{itemize}
 	\itemsep 0em
 	\item The Trackpy~\cite{trackpy} Python library (evaluated in section~\ref{sec:locate:trackpy});
@@ -110,7 +111,7 @@ Incidentally, the selected algorithm was also one of the best in terms of output
 
 To compare the different approaches with each other, some modifications were required to ensure consistency, for simpler comparison.
 After choosing the final algorithm, it was implemented again from scratch, in order to make it as fast as possible, with no overhead.
-This resulted in a decent speedup, which enabled the algorithm to execute at 102 FPS, faster than the target speed, as visible in figure~\ref{fig:locate:speed-cleansheet}.
+This resulted in a valuable speedup, which enabled the algorithm to execute at 102 FPS, faster than the target speed, as visible in figure~\ref{fig:locate:speed-cleansheet}.
 
 \begin{figure}
 	\centerline{\includegraphics[width=\textwidth]{images/locate-cleansheet-speed.png}}

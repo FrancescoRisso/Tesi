@@ -31,7 +31,7 @@ The different frames are processed differently, based on their index:
 		      \item Estimate their future position based on the current velocity and acceleration;
 		      \item In a patch around the predicted position, perform a \locate*;
 		      \item If the bubble is found, update its trajectory;
-		      \item Otherwhise, if a bubble is lost for some frames, remove it from the list.
+		      \item Otherwise, if a bubble is lost for some frames, remove it from the list.
 	      \end{enumerate}
 	\item Every $N$ frames:
 	      \begin{enumerate}
@@ -43,11 +43,11 @@ The different frames are processed differently, based on their index:
 \end{enumerate}
 
 This concept is a ``meta-algorithm'', in the sense that it relies on another \locate* algorithm as a backend.
-For the evaluation, multiple underying algorithm was chosen as backend.
+For the evaluation, multiple underlying algorithm were chosen as backend.
 
 \subsubsection{Evaluation}
 
-Both the qualty and the speed of the meta-algorithm were worse than the original algorithm.
+Both the quality and the speed of the meta-algorithm were worse than the original algorithms.
 For example, when using the Hough algorithm (see section~\ref{sec:locate:hough}), the quality was reduced from 84\% to 43\% (figure~\ref{fig:locate:iterative}), and the speed from 55 to 15 FPS.
 
 This meant that the divide and conquer approach was not advantageous, even if the tiles were meaningful.

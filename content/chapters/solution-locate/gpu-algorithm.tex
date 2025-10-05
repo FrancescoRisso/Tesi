@@ -11,7 +11,7 @@ The algorithm analyzes each pixel in GPU, to then collect the results with a CPU
 	\item For each possible radius $r$ between 1 and a parameter \texttt{MAX\_RADIUS}, execute a GPU kernel for each image pixel. The kernel operates the following:
 	      \begin{enumerate}
 		      \item Using Bresenham's rasterization algorithm, find the list of points that compose the circle of radius $r$ around the pixel of the thread;
-		      \item Find the fraction of ``on'' pixels among these;
+		      \item Find the fraction of ``on'' pixels among these, and use it as a pixel ``score'';
 		      \item Decide if the pixel can be a bubble or not, based on the following conditions:
 		            \begin{itemize}
 			            \item If within \texttt{MAX\_RADIUS} there is already a bubble, this cannot be another one (to avoid finding the same bubble twice);
@@ -19,7 +19,7 @@ The algorithm analyzes each pixel in GPU, to then collect the results with a CPU
 			            \item If this pixel was already marked as bubble in a previous iteration, leave it as it is;
 			            \item If none of the previous conditions hold, and $r$ is not \texttt{MAX\_RADIUS}, continue to the next iteration;
 			            \item If $r$ is \texttt{MAX\_RADIUS} and the pixel is a local maximum, consider it as a bubble;
-			            \item Otherwhise, the pixel is not a bubble.
+			            \item Otherwise, the pixel is not a bubble.
 		            \end{itemize}
 	      \end{enumerate}
 	\item In CPU, collect all the pixels marked as ``bubble'' into a common list.

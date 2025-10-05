@@ -2,7 +2,7 @@
 \label{chap:3dlink}
 
 The \link* step aims to link together consecutive time instants, by joining the coordinates of each individual bubble across the varius time instants it is seen.
-The result is a series of \textbf{tracklets}.
+The result is a series of trajectories, or \textbf{tracklets}.
 Specifically, the 3D version of the \link* step operates on 3D coordinates, producing 3D tracklets.
 
 \section{Requirements}
@@ -14,7 +14,7 @@ The input is therefore composed of two arrays, \texttt{positions} and \texttt{va
 
 \subsection{Output}
 
-Similarly to the \linkDD* step (whose ouptut is described in section~\ref{sec:linkDD:output}), the output format is the same as the input, with the added constraint that equal bubble indices across different framess imply same real-life bubble.
+Similarly to the \linkDD* step (whose output is described in section~\ref{sec:linkDD:output}), the output format is the same as the input, with the added constraint that equal bubble indices across different frames imply same real-life bubble.
 
 The output will be therefore composed of the three-dimensional, floating-point \texttt{positions[F][B]} array, with the \texttt{(x, y, z)} coordinates of bubble $B$ at time $F$, and the corresponding two-dimensional, boolean validity array \texttt{validTracers}.
 

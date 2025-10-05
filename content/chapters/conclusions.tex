@@ -11,7 +11,8 @@ The output quality is excellent with up to 100 bubbles in the field of view, whi
 While the speed is currently up to the requirements on the Jetson Orin Nano, an even faster system could run on less powerful and cheaper devices.
 As discussed in section~\ref{sec:results:speed}, the main bottleneck for the speed is the loading of the images to the RAM of the processing device.
 This could be improved using dedicated hardware, or by spawning different processes to load the different images concurrently.
-For this last proposal, a study on the specific final device should be done, to be able to choose the right amount of processes to balance the parallelism with the cost of context switching, in case there are not enough cores to execute all the processes concurrently.
+For this last proposal, a study on the specific final device should be done, to be able to choose the right amount of processes.
+It would be crucial to balance the added parallelism with the cost of context switching, in case there are not enough cores to execute all the processes concurrently.
 
 \subsection{Improving the quality}
 
@@ -22,7 +23,7 @@ Since the ``Epilines + brute force'' approach is the one with the best results, 
 This would improve the result, by having a better matching.
 
 Another option would be to add more information to the data given to the \match* algorithm.
-An example would be if the bubbles could have different colours: if, for example, half the real bubbles were yellow and half were blue, the matching would only need to choose among half of the current candidates (the ones with the same colour).
+An example would be if the bubbles could have different colours: if, for example, half the real bubbles were yellow and half were blue, the matching would only need to choose among half of the current candidates, the ones with the same colour.
 In general, adding an extra piece of information that splits the real bubbles into $N$ sets would on average enable to multiply by $N$ the number of bubbles that can be reconstructed with good quality.
 Another alternative to the colour could be the thermal information, if the temperature of the bubble changes during the time it spends in the air.
 For both these ideas, however, a different hardware setup should be constructed: RGB or thermal cameras would be required, and the images could not be simply binary, but would need more information.

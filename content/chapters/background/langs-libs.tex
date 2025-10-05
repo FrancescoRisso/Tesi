@@ -1,22 +1,24 @@
 \section{Programming languages and libraries}
 
-The particle tracking software that I developed was fully written in Python.
+The particle tracking software developed in the scope of this thesis is fully written in Python.
 This choice was made considering many reasons, including:
 \begin{itemize}
 	\itemsep 0em
 	\item the extensive quantity of optimized libraries for accomplishing many sub tasks (e.g. \texttt{NumPy});
 	\item the simplicity of the syntax, leading to fast development and testing;
-	\item the presence of many existing approaches to the problem;
+	\item the presence of many existing approaches to the problem in this language;
 	\item the possibility to run GPU kernels.
 \end{itemize}
 Initially, there were discussions about testing the different ideas in Python for development speed, to then translate the code into C++, to leverage its faster execution speed.
-At the end, the speed of the Python implementation was good enough, so it was kept as the final version, without rewriting.
+At the end, the speed of the Python implementation resulted to be good enough, so it was kept as the final version, without rewriting.
 On top of that, the program relied heavily on advanced \texttt{NumPy} features: a C++ porting would require equivalent manual implementations, thus losing the intrinsic optimizations.
+
+The following chapters briefly describe the libraries used in the project.
 
 \subsection{NumPy, SciPy, CuPy}
 
 \texttt{NumPy}~\cite{numpy} and \texttt{SciPy}~\cite{scipy} are the classical optimized libraries used for mathematical computations.
-\texttt{CuPy}~\cite{cupy} is an alternative to \texttt{SciPy}, that makes use of a GPU to parallelize and accelerate even more the methods.
+\texttt{CuPy}~\cite{cupy} is an alternative to \texttt{SciPy}, that makes use of a GPU to parallelize and accelerate even more the functions it implements.
 
 \subsection{OpenCV}
 
@@ -35,4 +37,4 @@ On top of this, it enables to write Python kernels that can be compiled into CUD
 
 The libraries \texttt{trackpy}~\cite{trackpy}, \texttt{MyPTV}~\cite{myptv}, \texttt{TracTrac}~\cite{tractrac}, as well as the Matlab tool \texttt{4d-ptv}~\cite{fourdptv}, are different existing solutions for attempting the task. A better analysis follows in the chapters where all the steps are examined.
 
-The library \texttt{PyTorch}~\cite{pytorch}, one of the main pillar of machine learning in Python, is also used in some of the attempts at finding the best solution.
+The library \texttt{PyTorch}~\cite{pytorch}, one of the main pillars of machine learning in Python, is also used in some of the attempts at finding the best solution.

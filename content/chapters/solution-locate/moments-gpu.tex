@@ -13,7 +13,7 @@ The resulting implementation was also extended to process contours of multiple c
 \begin{enumerate}
 	\itemsep 0em
 	\item Through \texttt{OpenCV}'s \texttt{FindContours}, find all the bubbles for a given frame;
-	\item Find the largest contour among them (this allows all GPU threads to work on the same data size, to avoid diversions);
+	\item Find the largest contour among them (this allows all GPU threads to work on the same data size, to avoid divergence: smaller contours are 0-padded to this common size);
 	\item For each contour found, a GPU thread runs the following kernel:
 	      \begin{enumerate}
 		      \item Iterate over all pixels, accumulating $M_{00}$, $M_{01}$ and $M_{10}$;
@@ -24,7 +24,7 @@ The resulting implementation was also extended to process contours of multiple c
 
 \subsubsection{Evaluation}
 
-Since the algorithm the exact porting of the corresponding CPU algorithm, the output is the same (figure~\ref{fig:locate:moments}, 99\% of bubbles found).
+Since the algorithm is the exact porting of the corresponding CPU algorithm to GPU, the output is the same (figure~\ref{fig:locate:moments}, 99\% of bubbles found).
 
 For the speed evaluation, some tests were conducted to find the best, if any, batch size.
 Figure~\ref{fig:locate:moments-cpu-vs-gpu} compares the speed of the CPU algorithm to the speed of the GPU algorithm, with respect to the total number of frames the GPU algorithm processes together.

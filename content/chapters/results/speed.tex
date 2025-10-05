@@ -4,7 +4,7 @@
 \subsection{Overall speed}
 
 The full pipeline took 42s to process a video composed of 1000 frames, thus resulting in a speed of 38 FPS, higher than what was required.
-To avoid waiting times due to the camera framerate, these measurements were computed by using a video previously captured and saved as set of frames on the disk.
+To avoid waiting times due to the camera frame rate, these measurements were computed by using a video previously captured and saved as set of frames on the disk.
 
 \subsection{Speed of the pipeline steps}
 
@@ -19,8 +19,11 @@ Naturally, the last step to complete is the last one of the pipeline, the \link*
 
 \subsubsection{\locate* step}
 
-As shown in figure~\ref{fig:speed:locate}, the \locate* step was always fully operational.
-The main bottleneck is the loading of the images from the HDD to the RAM for processing.
+As shown in figure~\ref{fig:speed:locate}, the \locate* step was always fully operational, without ever having to wait for data.
+This is obvious, since its input was already fully available at the start of the execution.
+It must however be noted that, as visible in figure~\ref{fig:speed:all-pipeline}, the \locate* step did not finish much earlier than the others, indicating that it does not have a speed advantage over the other steps.
+
+As visible in figure~\ref{fig:speed:locate}, the main bottleneck within this step is the time required for loading the images from the HDD to the RAM, to start processing them.
 
 \begin{figure}
 	\centerline{\includegraphics[width=\textwidth]{images/speed/locate.png}}
@@ -50,3 +53,15 @@ This indicates that it is far from being the bottleneck, and potentially more co
 	\caption{\centering Distribution of how the \link* step spent its execution time}
 	\label{fig:speed:link}
 \end{figure}
+
+\subsection{Bottleneck evaluation}
+
+As highlighted by the previous sections, the \locate* step is the current bottleneck of the system.
+Figure~\ref{fig:pipeline-timing-schema} confirms this, by showing in a graphical way the timing of the different steps: the various \match* frames require to wait some time for the previous \locate* batches, and the \link* frames are constantly waiting for the \locate* output.
+
+\begin{figure}[H]
+	\centerline{\includegraphics[width=.8\textwidth]{images/pipeline-timing.png}}
+	\caption{\centering Schema (not to scale) of how the different pipeline stages are executed over time. The different rectangles indicate a batch of 20 frames per camera in the \locate*, and single frames in the other steps}
+	\label{fig:pipeline-timing-schema}
+\end{figure}
+\newpage

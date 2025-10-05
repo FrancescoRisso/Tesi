@@ -5,7 +5,7 @@
 
 As described in chatper~\ref{chap:basicpipeline} and in figure~\ref{fig:pipeline:order} (reported here as figure~\ref{fig:pipeline:order-again} for convenience), the pipeline can be implemented either in the blue or in the orange order.
 
-From the results of chatper~\ref{chap:3dlink}, the \linkDDD* (in the orange order) was quite faster than the \linkDD*: a faster step implies less computation resources used, which means more resources for the most intensive tasks.
+From the results of chatper~\ref{chap:3dlink}, the \linkDDD* (in the orange order) was quite faster than the \linkDD*: a faster step implies less computation resources used, which leaves more available for the most intensive tasks.
 The other benefit of the orange pipeline is that the linking is performed in 3D, where more information are available.
 In particular, it was noticed relatively often that the \match* step would reconstruct bubbles belonging to the same 2D tracklet at different depths, creating a sudden jump in the 3D trajectory, indicating an error.
 Instead, when the \linkDDD* was used, the results were more coherent.
@@ -29,7 +29,7 @@ The different processes are organized as follows:
 	      \begin{itemize}[topsep=0pt]
 		      \itemsep 0em
 		      \item loads the images either from the cameras or from file;
-		      \item finds the bubble with the \texttt{findContours} function;
+		      \item finds the bubbles using the \texttt{findContours} function;
 		      \item launches and waits for the GPU computation of the moments.
 	      \end{itemize}
 	\item a process runs the \match* step, that:
@@ -53,6 +53,6 @@ The different processes are organized as follows:
 		      \item activates a new virtual environment, since \texttt{Open3D} requires a \texttt{NumPy} version not compatible with the rest;
 		      \item runs the visualization script, that constantly checks for new values, displays them and responds to the user input.
 	      \end{itemize}
-	\item if enabled, a final conveniency process constantly updates the output in the terminal, writing the total number of frames processed by each step.
+	\item if enabled, a final debug process constantly updates the output in the terminal, writing the total number of frames processed by each step.
 \end{itemize}
 The different waits are realized as a loop that performs a 0.5s sleep until more data is available.

@@ -1,7 +1,7 @@
 \subsection{Trackpy}
 \label{sec:link2d:trackpy}
 
-The \texttt{link} function from library Trackpy~\cite{trackpy} is able to perform the \link* task both in 2D and in 3D.
+The \texttt{link} function from the Trackpy~\cite{trackpy} library is able to perform the \link* task both in 2D and in 3D.
 
 Originally, it required the located positions to be inside a \texttt{Pandas Dataframe}, and it used to convert it into a \texttt{NumPy} array.
 However, since our data was already inside a \texttt{NumPy} array with the same format, the library was altered to avoid this useless conversion, thus saving time.
@@ -13,7 +13,7 @@ The Trackpy library implements the Crocker-Grier linking algorithm~\cite{trackpy
 \subsubsection{Evaluation}
 
 For a single camera, the linking speed was 40 FPS.
-If different cameras were analyzed in parallel processes, this could reach up to 120 FPS (with 3 cameras).
+If different cameras were analyzed in parallel processes, 3 cameras could be processed at an overall speed of 120 FPS.
 
 The quality was good at a visual inspection (see figure~\ref{fig:linkDD:trackpy} or the full video~\cite{linkDD-trackpy}), and the total number of tracklets was around 6500.
 

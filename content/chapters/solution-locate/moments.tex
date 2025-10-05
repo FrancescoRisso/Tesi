@@ -1,8 +1,8 @@
 \subsection{Image moments}
 
-Thanks the preprocessing done by FPGA, the \locate* task is equivalent to finding homogeneous regions of white pixels on top of a black background.
+Thanks to the preprocessing done by FPGA, the \locate* task is equivalent to finding homogeneous regions of white pixels on top of a black background.
 This task is implemented by the function \texttt{FindContours}~\cite{findcontours} from \texttt{OpenCV}, that finds a rectangular bounding box around pixels with the same intensity.
-The precise coordinates of the bubble centroid can be found by computing the centroid (the image moments, see section~\ref{sec:backgr:moments}) of each bounding box.
+The precise coordinates of the bubble can be found by computing the centroid of each bounding box, using image moments (described in section~\ref{sec:backgr:moments}).
 
 \subsubsection{Algorithm}
 
@@ -24,6 +24,6 @@ The speed of 67 FPS is extremely good as well, while still being lower than the 
 
 \begin{figure}
 	\centerline{\includegraphics[width=\locateimgsize]{images/locate/opencv moments.png}}
-	\caption{\centering Image moments's result}
+	\caption{\centering Image moments' result}
 	\label{fig:locate:moments}
 \end{figure}

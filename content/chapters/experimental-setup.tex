@@ -18,7 +18,7 @@ The power consumption can oscillate between 7 and 25W: during our tests, it was 
 The Jetson AGX Xavier~\cite{xavier} is another embedded chip developed by NVIDIA.
 The Xavier generation means that this chip is older than the Orin, while the AGX family means that it is on the most powerful side of its generation.
 
-Jetson AGX Xavier is a system powered by a 8-core Carmel ARM CPU.
+The Jetson AGX Xavier is a system powered by a 8-core Carmel ARM CPU.
 It provides a 16GB, LPDDR4 RAM, and accepts an SD card and an external NVMe as mass storage.
 Its GPU is a NVIDIA chip with Volta architecture, with 512 CUDA cores and 64 tensor cores.
 As for the Orin, the power consumption was set to maximize performance during our tests.
@@ -26,9 +26,9 @@ As for the Orin, the power consumption was set to maximize performance during ou
 \section{Cameras}
 
 The cameras in use are custom-made, global shutter cameras, with a 960{$\times$}960 sensor that provides 16 bits per pixel.
-Their maximum framerate is 30 FPS, but the full resolution limits it at 24 FPS for data transfer speed.
+Their maximum frame rate is 30 FPS, but the full resolution limits it at 24 FPS for data transfer speed.
 Each camera is equipped with an FPGA module, that performs a background subtraction and a binarization, providing as output binary images, with white bubbles over a black background.
-The connection between each camera and the processing element is realized following the MIPI protocol.
+The connection between each camera and the processing element is realized following the MIPI protocol, which also enables to have synchronization among the frames captured by the different cameras.
 
 \begin{figure}
 	\centerline{\includegraphics[width=0.9\textwidth]{images/HW-schematics.png}}

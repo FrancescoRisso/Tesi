@@ -2,14 +2,14 @@
 \label{chap:matching}
 
 The \match* step has the objective of leveraging the different camera views to estimate the depth (and, consequently, the 3D coordinates) of the bubbles.
-The depth estimation is done with the technique of stereoscopy (see section~\ref{sec:backgr:stereo}).
-In particular, the \match* step needs to match the same bubble across different cameras, to then call \texttt{OpenCV}'s \texttt{triangulatePoints} function for reconstructing the 3D position.
+The depth estimation is done with the technique of stereoscopy (explained in section~\ref{sec:backgr:stereo}).
+In particular, the \match* step needs to match the same bubble across different cameras, to then call \texttt{OpenCV}'s \texttt{triangulatePoints} function for reconstructing the 3D positions.
 
 \section{Requirements}
 
 \subsection{Input}
 
-Depending on the pipeline order, the input to the \match* step can be either the output of the \locate* step or the one of the \linkDD* step.
+Depending on the pipeline order, the input to the \match* step can be either the output of the \locate* step or the \linkDD* step.
 In both cases, the input is composed of two arrays:
 \begin{itemize}
 	\itemsep 0em
@@ -22,9 +22,9 @@ After that, the \match* can be executed without caring about the source of the d
 \subsection{Output}
 \label{sec:match:output}
 
-The \match* step's output consists in a couple of arrays, similar to the output of the \linkDD* (see section~\ref{sec:linkDD:output}).
+The \match* step's output consists in a couple of arrays, similar to the output of the \linkDD* (described in section~\ref{sec:linkDD:output}).
 
-The 3D coordinates of the bubbles are stored in a three-dimensional, floating array called \texttt{positions}. \texttt{positions[F][B]} contains the coordinate of the $B$-th bubble in the $F$-th time instant, as a tuple \texttt{(x, y, z)}.
+The 3D coordinates of the bubbles are stored in a three-dimensional, floating-point array called \texttt{positions}. \texttt{positions[F][B]} contains the coordinates of the $B$-th bubble in the $F$-th time instant, as a tuple \texttt{(x, y, z)}.
 The camera index disappeared, since this step combines the information from all cameras into a single, 3D description of the bubbles.
 
 To represent the valid bubbles, a three-dimensional, boolean \texttt{validTracers} array is used.
@@ -37,27 +37,27 @@ Instead, if the input is the \linkDD* step, the distribution of real coordinates
 
 \subsection{Speed}
 
-To respect the real time constraint, the \match* step should operate at 30 FPS, ideally independently of the number of cameras.
+To respect the real time constraint, the \match* step should operate at 30 FPS.
 
 \subsection{Quality}
 
-The matching algorithms start from a bubble in one camera, and try to find the matching bubble on the other cameras.
+The matching algorithms start from a bubble in one ``main'' camera, and try to find the matching bubble on the other cameras.
 Such attempt can have three outcomes:
 \begin{itemize}
 	\itemsep 0em
-	\item correct match: the bubble is matched to the correct one in the other camera. This is the ideal case, since it would lead to a correct 3D reconstrucion;
+	\item correct match: the bubble is matched to the correct one in the other camera. This is the ideal case, since it would lead to a correct 3D reconstruction;
 	\item missing match: the original bubble is not matched to another one. Since the setup is composed by more than 2 cameras, a missed match is not too terrible, since it is still possible that the matches in the other cameras are correct, to have a correct 3D reconstruction;
-	\item wrong match: the bubble is matched to a wrong one. This leads to certain reconstrucion errors, since the \texttt{triangulatePoints} function will have either wrong or incoherent information.
+	\item wrong match: the bubble is matched to a wrong one. This leads to certain reconstruction errors, since the \texttt{triangulatePoints} function will have either wrong or incoherent information.
 \end{itemize}
 The ideal matching algorithm is therefore one that produces correct matches for all bubbles, but if it's not possible, it's better to have missing matches rather than wrong matches.
 
 \section{State of the art}
 
-For the \match*, no existing solution was found when looking on the Internet: the matching is usually done on full images, not on single sets of cordinates.
+For the \match*, no existing solution was found when looking on the Internet: the matching is usually done on full images, not on single sets of coordinates.
 The only starting point available for this step was the original tool developed by the research group, the objective of the acceleration.
 In particular, it allows to choose between an epiline-only approach (examined in section~\ref{sec:match:epiline}) and a brute force algorithm (evaluated in section~\ref{sec:match:bruteforce}).
 
-When exploring the Trackpy~\cite{trackpy} documentation, the phrase ``Trackpy is a Python package for particle tracking in 2D, 3D'' may lead to think that Trackpy also performs the \match* stage.
+When exploring the Trackpy~\cite{trackpy} documentation, the phrase ``Trackpy is a Python package for particle tracking in 2D, 3D'' may lead to think that Trackpy also performs the \match* task.
 Contrarily, this means that Trackpy is able to perform tracking with 3D data in input, collected for instance using the confocal microscopy technique.
 As such, it is not a useful approach for this step.
 
@@ -67,7 +67,7 @@ The following chapters describe the different approaches explored for the \match
 The evaluation was performed separately for speed and quality, with the speed measured on the same dataset as the \linkDD* step.
 For the quality, it was not possible to have a ground truth containing the correct match between two cameras, neither with a real dataset nor with a synthetic one.
 As such, a manual classification of correct/missed/wrong matches was done.
-As visible in figure~\ref{fig:match:example}, the displacement between the view of two cameras is mostly constant: checking this consistency allows a human eye to evaluate the correcness of a match.
+As visible in figure~\ref{fig:match:example}, the displacement between the view of two cameras is mostly constant: checking this consistency allows a human eye to evaluate the correctness of a match.
 
 The qualitative evaluation was performed using two Blender-generated datasets, composed by a single frame, with respectively 30 and 100 bubbles.
 An attempt was done with more bubbles, but the image was too crowded to identify correct or wrong matches.

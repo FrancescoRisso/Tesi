@@ -7,12 +7,12 @@ For this reason, a modified version was considered as a novel \linkDD* approach.
 
 \subsubsection{Algorithm}
 
-The algorithm starts with an empty list of bubbles previously found.
+The algorithm starts with an empty list of previously found bubbles.
 It then loops over these steps, for each frame in the video:
 \begin{enumerate}
 	\itemsep 0em
-	\item Store the positions of the bubbles in a suitable data structure. Based on the settings, a basic coordinate list or a 2D binary tree could be used;
-	\item For each bubble in the list:
+	\item Store the positions of the located bubbles in a suitable data structure. Based on the settings, a basic coordinate list or a 2D binary tree could be used;
+	\item For each bubble in the ``previous bubbles'' list:
 	      \begin{enumerate}
 		      \item Compute its velocity and acceleration from the last trajectory points, if available;
 		      \item Compute a predicted position;
@@ -21,7 +21,7 @@ It then loops over these steps, for each frame in the video:
 			            \item If the binary tree was used as representation, consider all bubbles within a \textit{delta} from the predicted position;
 			            \item If the bubbles list was used as representation, consider all bubbles;
 		            \end{itemize}
-		      \item Among the candidates, chose the one closest (in terms of Manhattan distance) from the predicted position;
+		      \item Among the candidates, chose the closest one (in terms of Manhattan distance) to the predicted position;
 		      \item Check that the distance of the match is reasonable:
 		            \begin{itemize}
 			            \item If it is, link the two bubbles, and mark the chosen one as linked;
@@ -31,7 +31,7 @@ It then loops over these steps, for each frame in the video:
 	\item Add all unlinked bubbles to the list, as new tracklets.
 \end{enumerate}
 The 2D binary tree was added to reduce the amount of possible matches, by splitting the coordinates into 4 bins for every node layer, storing the bins as Python lists.
-To obtain the bubbles within a \textit{delta} from the predicted position, the tree would consider all bins that (at least partially) statisfied the condition.
+To obtain the bubbles within a \textit{delta} from the predicted position, the tree would consider all bins that (at least partially) satisfied the condition.
 
 \subsubsection{Evaluation}
 
@@ -40,8 +40,8 @@ Considering the tree choice, it was possible to choose between:
 	\itemsep 0em
 	\item no tree at all: as stated in the algorithm overview, the original \texttt{NumPy} array of bubbles was used as set of candidates;
 	\item tree with 0 layers: no split was performed, therefore the original \texttt{NumPy} array was simply translated into a Python list. The distance computation is the same as with no tree, with added overhead of creating and accessing the Python list instead of the \texttt{NumPy} array.
-	\item tree with maximum number of layers: each leaf bin represents a single pixel of the original image, therefore will contain either 1 or 0 bubbles. The number of layers is $\lceil log_2(P) \rceil$, where $P$ is the side, in pixels, of the captured image. In our case, $P{=}960$, prompting to choose 9 layers. This option has a fine-grained way to choose the bubbles at a reasonable distance, while adding more overhead related to constructing a bigger tree, and traversing multiple path to construct the set of bubbles to be evaluated.
-	\item tree with intermediate number of layers: this is a compromise between efficiency in buiding and using the tree, and reducing the number of distances to compute.
+	\item tree with maximum number of layers: each leaf bin represents a single pixel of the original image, therefore will contain either 1 or 0 bubbles. The number of layers is $\lceil log_2(P) \rceil$, where $P$ is the side, in pixels, of the captured image. In our case, $P{=}960$, prompting to choose 9 layers. This option has the most fine-grained way to choose the bubbles at a specific distance. It however adds the most overhead related both to constructing a bigger tree, and traversing multiple paths to construct the set of bubbles to be evaluated.
+	\item tree with intermediate number of layers: this is a compromise between efficiency in building and using the tree, and reducing the number of distances to compute.
 \end{itemize}
 These different approaches are compared in figure~\ref{fig:linkDD:kalmancpu:speed-cmp}: when considering the tree, the best choice is a compromise between granularity and tree complexity.
 However, the overhead of building the tree does still not match the performance without it, thanks to the extreme optimization of the \texttt{NumPy} library.

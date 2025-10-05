@@ -5,8 +5,8 @@ In mathematics, a \textbf{moment} is a quantitative measurement related to a fun
 In particular, the moment of index $n$ of the function $f(x)$ is defined as $\int x^n f(x) dx$.
 The same underlying concept can be adapted to images, with some modifications to adapt to the two, discrete dimensions.
 
-Given a grayscale image of size$N{\times}M$, name $I(x,y)$ the intensity of its pixels.
-Then, the \textbf{raw moment of index $(p{+}q)$} can be computed as: $$M_{pq} = \sum_{x=0}^{N} \sum_{y=0}^{M} x^p{\cdot}y^q{\cdot}I(x,y)$$
+Given a grayscale image of size $N{\times}M$, name $I(x,y)$ the intensity of its pixels.
+Then, the \textbf{raw moment of index $(p{+}q)$} can be computed as: $$M_{pq} = \sum_{x=0}^{N-1} \sum_{y=0}^{M-1} x^p{\cdot}y^q{\cdot}I(x,y)$$
 These moments are able to describe some features of the image.
 In particular, for our purpose we consider the moments of index 0 and 1:
 \begin{itemize}
