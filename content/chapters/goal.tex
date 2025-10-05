@@ -48,7 +48,7 @@ In the final setup, 3 or 4 cameras were used in a stereoscopic arrangement, as s
 
 \subsection{Reconstruction algorithm acceleration}
 
-The research group internally developed a Matlab tool for analyzing the video footage from an arrangement of 3 cameras, but the processing speed was extremely slow.
+The research group internally developed a MATLAB tool for analyzing the video footage from an arrangement of 3 cameras, but the processing speed was extremely slow.
 As such, they contracted SMA-RTY to create an accelerated version, either by improving the original one, or by creating a totally new script, in whichever programming language was best.
 The objective of the acceleration was to have a real-time software, that would be able to process the videos live, with an allowance of some seconds of jitter.
 That is, a delay between capturing the frame and outputting the reconstruction was acceptable, as long as it did not increase over time.
@@ -60,7 +60,7 @@ However, the project required visible cameras, therefore this idea had to be dis
 
 \section{Thesis objectives}
 
-I was assigned by the SMA-RTY team the task of accelerating the Matlab script for processing the videos.
+I was assigned by the SMA-RTY team the task of accelerating the MATLAB script for processing the videos.
 Originally, the vision was to exploit my CUDA skills to leverage the parallelization of GPUs.
 However, as the body of this thesis will make clear, there was not so much parallelization that could be done.
 Instead of focusing on ``better'' hardware architectures, the best course of action was indeed to optimize the various software steps.

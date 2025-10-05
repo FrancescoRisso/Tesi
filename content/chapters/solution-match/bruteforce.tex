@@ -1,10 +1,10 @@
 \subsection{Brute force}
 \label{sec:match:bruteforce}
 
-This approach is one of the two implemented in the original Matlab script: it leverages the fact that more than two cameras are present, not only as a confirmation, but as a knowledge-extracting method.
+This approach is one of the two implemented in the original MATLAB script: it leverages the fact that more than two cameras are present, not only as a confirmation, but as a knowledge-extracting method.
 
 Given a bubble on the main camera, it should be matched to a specific bubble on the other two cameras.
-If the 3D position is reconstructed from the main and one side camera, the result should be similar to the reconstuction done with the main and the other side camera.
+If the 3D position is reconstructed from the main and one side camera, the result should be similar to the reconstruction done with the main and the other side camera.
 On the other side, wrong matches would reconstruct totally different 3D coordinates.
 
 \subsubsection{Algorithm}
@@ -17,10 +17,10 @@ On the other side, wrong matches would reconstruct totally different 3D coordina
 		      \item Do the same, with the other non-main camera (to obtain a set $P_j'$);
 		      \item Find the points $p\in P_i$ and $p'\in P_j'$ whose distance is the smallest;
 		      \item Check their distance:
-		      \begin{itemize}
-				\item If it is below a specific threshold, the two reconstructions are considered to be the same bubble, hence the two matches are approved;
-				\item Otherwise, the reconstructed bubbles are the closest plausible, but still different bubbles, hence the match is considered missing.
-			  \end{itemize}
+		            \begin{itemize}
+			            \item If it is below a specific threshold, the two reconstructions are considered to be the same bubble, hence the two matches are approved;
+			            \item Otherwise, the reconstructed bubbles are the closest plausible, but still different bubbles, hence the match is considered missing.
+		            \end{itemize}
 	      \end{enumerate}
 \end{enumerate}
 

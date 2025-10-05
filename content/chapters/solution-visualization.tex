@@ -63,7 +63,7 @@ The Open3D renderer (a screenshot can be seen in figure~\ref{sec:visual:o3d}) wa
 This was added as a separate step in the pipeline, taking the data directly from the last step.
 
 The user movement is the same as in the Unity renderer (schema available in figure~\ref{fig:visual:cameradir}).
-It may however be slightly laggy, since it's running on an embedded device, which at the same time is executing the rest of the pipeline.
+It may however be slightly jumpy, since it's running on an embedded device, which at the same time is executing the rest of the pipeline.
 
 Differently from the Unity renderer, this one cannot use real time as representation of reconstruction time: instead, a color gradient is used, with blue representing the first and red the last time instants.
 

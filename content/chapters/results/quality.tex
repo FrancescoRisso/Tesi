@@ -27,16 +27,16 @@ Errors at this stage position a bubble away from its correct location, splitting
 In particular, for the 30-frames dataset, a single error at frame $f$ would split the full trajectory into two shorter segments, with lengths $f$ and $29-f$, plus a single-frame tracklet, with only the erroneous bubble.
 As such, by analyzing the distribution of trajectory lengths, it is possible to evaluate the quality of the reconstruction.
 
-% A single matching error at frame $f$ will move one bubble into the wrong position, splitting the 30-frame trajectory into three, with lenghts $f$, $1$ and $29-f$.
-% As such, errors can be identified by examining the distribution of trajectory lenght.
+% A single matching error at frame $f$ will move one bubble into the wrong position, splitting the 30-frame trajectory into three, with lengths $f$, $1$ and $29-f$.
+% As such, errors can be identified by examining the distribution of trajectory length.
 
 Experiments were conducted with four different datasets, respectively with 50, 100, 250 and 1000 bubbles each.
-% In particular, the x-axis contains the trajectory lenghts, and the corresponding y-value indicates the percentage of bubbles associated with a trajectory of such lenght.
+% In particular, the x-axis contains the trajectory lengths, and the corresponding y-value indicates the percentage of bubbles associated with a trajectory of such length.
 % The x-value $x$ will be the percentage value of $N_x{\cdot}x:B$, where $B$ is the total number of bubbles of all frames, and $N_x$ is the number of trajectories with length $x$.
-% The $x$ factor is crucial, since it makes the different lenghts comparable: without it, the graph would just be the percentage of tracklets with a specific lenght over the total number of tracklets.
+% The $x$ factor is crucial, since it makes the different lengths comparable: without it, the graph would just be the percentage of tracklets with a specific length over the total number of tracklets.
 % If that was the case, however, a full trajectory split into 3 pieces would be valued as three times a 
-Initially, the graph in figure~\ref{fig:traj-len-distr} was created, with the most intuitive content: the percentage of trajectories with lenght $x$, for every possible length $x$.
-This visualization was however misleading: for example, the 50-bubbles dataset had 29 full-lenght (30 frames) trajectories, which is more than half.
+Initially, the graph in figure~\ref{fig:traj-len-distr} was created, with the most intuitive content: the percentage of trajectories with length $x$, for every possible length $x$.
+This visualization was however misleading: for example, the 50-bubbles dataset had 29 full-length (30 frames) trajectories, which is more than half.
 However, the corresponding point on the graph had a value of about 30\%.
 The cause of this inconsistency in the graph is the fact that splitting a theoretical trajectory into smaller ones would increase the total number of trajectories, thus reducing all the percentages.
 In other words, the correct reconstruction counts as 1, but a trajectory with an error in the middle counts as 3.
@@ -48,12 +48,12 @@ In other words, the correct reconstruction counts as 1, but a trajectory with an
 
 To make up for this error, a new graph was created, depicted in figure~\ref{fig:traj-len-distr-weighted}.
 It does not compute the average over the number of trajectories, but over the number of bubbles, which is not affected by the reconstruction quality.
-As such, the data points in this new graph are weighted over the trajectory lenght.
+As such, the data points in this new graph are weighted over the trajectory length.
 For example, a 1-long trajectory would count as a ``single unit'', while a 30-long trajectory has a value of ``30 units'' for this computation.
 This enables to correctly showcase the overall quality of the reconstruction: in the 50-bubbles example considered before, now the value indicated by the graph for complete trajectories is about 60\%, coherent with the measure of 29 fully reconstructed tracklets over the total 50 bubbles.
 \begin{figure}
 	\centerline{\includegraphics[width=0.7\textwidth]{images/traj-len-graph.png}}
-	\caption{\centering The distribution of trajectory lengths for the different datasets with varying number of bubbles: considering trajectories weighted on their lenght}
+	\caption{\centering The distribution of trajectory lengths for the different datasets with varying number of bubbles: considering trajectories weighted on their length}
 	\label{fig:traj-len-distr-weighted}
 \end{figure}
 
@@ -68,9 +68,9 @@ As visible in figure~\ref{fig:traj-len-distr-weighted}, in the first two dataset
 As such, the quality is considered good with observations of up to 100 bubbles.
 
 % Figure~\ref{fig:traj-len-distr} compares such distribution of lengths for $N$ values of 50, 100, 250, 1000.
-% The x axis represents the trajectory lenght, while the y axis is the percentage of bubbles associated with such lenght.
+% The x axis represents the trajectory length, while the y axis is the percentage of bubbles associated with such length.
 % For example, a 30-frames trajectory would count as ``30 units'' in the x=30 bin, while a trajectory split at frame 5 would count as 5 units at x=5, 1 unit at x=1 and 24 units at x=24.
 % The percentage is obtained by dividing the value (in ``units'') of each bin by the total value of the graph, which is the total number of detected bubbles.
-% Iteally, the graph should have value 0\% for all bins other than 30, which should have a value of 100\%.
+% Ideally, the graph should have value 0\% for all bins other than 30, which should have a value of 100\%.
 % As visible in the graph, a good part of the trajectories is correct up to 100 bubbles, while adding more deteriorates the performance considerably.
 % The quality is therefore considered good up to 100 bubbles.

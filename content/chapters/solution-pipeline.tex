@@ -3,9 +3,9 @@
 
 \section{Pipeline order}
 
-As described in chatper~\ref{chap:basicpipeline} and in figure~\ref{fig:pipeline:order} (reported here as figure~\ref{fig:pipeline:order-again} for convenience), the pipeline can be implemented either in the blue or in the orange order.
+As described in chapter~\ref{chap:basicpipeline} and in figure~\ref{fig:pipeline:order} (reported here as figure~\ref{fig:pipeline:order-again} for convenience), the pipeline can be implemented either in the blue or in the orange order.
 
-From the results of chatper~\ref{chap:3dlink}, the \linkDDD* (in the orange order) was quite faster than the \linkDD*: a faster step implies less computation resources used, which leaves more available for the most intensive tasks.
+From the results of chapter~\ref{chap:3dlink}, the \linkDDD* (in the orange order) was quite faster than the \linkDD*: a faster step implies less computation resources used, which leaves more available for the most intensive tasks.
 The other benefit of the orange pipeline is that the linking is performed in 3D, where more information are available.
 In particular, it was noticed relatively often that the \match* step would reconstruct bubbles belonging to the same 2D tracklet at different depths, creating a sudden jump in the 3D trajectory, indicating an error.
 Instead, when the \linkDDD* was used, the results were more coherent.
